@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="500.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.LoginFormController">
+   <children>
+      <MFXTextField fx:id="txtFieldName" floatingText="Enter Your Name" layoutX="159.0" layoutY="449.0" prefHeight="45.0" prefWidth="183.0" styleClass="mfx-text-field" />
+      <MFXButton buttonType="RAISED" layoutX="189.0" layoutY="548.0" onAction="#btnChatOnAction" prefHeight="38.0" prefWidth="122.0" rippleColor="#979797" styleClass="mfx-button" text="Chat" />
+      <Label layoutX="167.0" layoutY="102.0" text="Get Started" textFill="#545454">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="134.0" layoutY="145.0" text="Start with entering your name." textFill="#6b6b6b" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="134.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="219.0" fitWidth="279.0" layoutX="104.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/icon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="204.0" layoutY="38.0" text="V-Chat" textFill="#3498db">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
