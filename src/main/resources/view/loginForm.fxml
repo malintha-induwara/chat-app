@@ -2,16 +2,18 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="500.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.LoginFormController">
+<AnchorPane prefHeight="669.0" prefWidth="500.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.LoginFormController">
    <children>
-      <MFXTextField fx:id="txtFieldName" floatingText="Enter Your Name" layoutX="159.0" layoutY="449.0" prefHeight="45.0" prefWidth="183.0" styleClass="mfx-text-field" />
-      <MFXButton buttonType="RAISED" layoutX="189.0" layoutY="548.0" onAction="#btnChatOnAction" prefHeight="38.0" prefWidth="122.0" rippleColor="#979797" styleClass="mfx-button" text="Chat" />
+      <MFXTextField fx:id="txtFieldName" floatingText="Enter Your Name" layoutX="161.0" layoutY="493.0" prefHeight="45.0" prefWidth="183.0" styleClass="mfx-text-field" />
+      <MFXButton buttonType="RAISED" layoutX="189.0" layoutY="580.0" onAction="#btnChatOnAction" prefHeight="38.0" prefWidth="122.0" rippleColor="#979797" styleClass="mfx-button" text="Chat" />
       <Label layoutX="167.0" layoutY="102.0" text="Get Started" textFill="#545454">
          <font>
             <Font name="System Bold" size="26.0" />
@@ -22,7 +24,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <ImageView fitHeight="219.0" fitWidth="279.0" layoutX="104.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="219.0" fitWidth="279.0" layoutX="111.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/images/icon.png" />
          </image>
@@ -32,5 +34,10 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
+      <Circle fill="WHITE" layoutX="253.0" layoutY="428.0" radius="42.0" stroke="BLACK" strokeType="INSIDE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Circle>
    </children>
 </AnchorPane>
