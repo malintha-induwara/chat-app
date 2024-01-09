@@ -12,8 +12,8 @@
 
 <AnchorPane prefHeight="669.0" prefWidth="500.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.LoginFormController">
    <children>
-      <MFXTextField fx:id="txtFieldName" floatingText="Enter Your Name" layoutX="161.0" layoutY="493.0" prefHeight="45.0" prefWidth="183.0" styleClass="mfx-text-field" />
-      <MFXButton buttonType="RAISED" layoutX="189.0" layoutY="580.0" onAction="#btnChatOnAction" prefHeight="38.0" prefWidth="122.0" rippleColor="#979797" styleClass="mfx-button" text="Chat" />
+      <MFXTextField fx:id="txtFieldName" floatingText="Enter Your Name" layoutX="162.0" layoutY="501.0" prefHeight="45.0" prefWidth="183.0" styleClass="mfx-text-field" />
+      <MFXButton buttonType="RAISED" layoutX="189.0" layoutY="579.0" onAction="#btnChatOnAction" prefHeight="38.0" prefWidth="122.0" rippleColor="#979797" styleClass="mfx-button" text="Chat" />
       <Label layoutX="167.0" layoutY="102.0" text="Get Started" textFill="#545454">
          <font>
             <Font name="System Bold" size="26.0" />
@@ -34,7 +34,7 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <Circle fill="WHITE" layoutX="253.0" layoutY="428.0" radius="42.0" stroke="BLACK" strokeType="INSIDE">
+      <Circle fx:id="circleImg" fill="WHITE" layoutX="253.0" layoutY="441.0" onMouseClicked="#circleImgOnAction" radius="42.0" stroke="BLACK" strokeType="INSIDE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
