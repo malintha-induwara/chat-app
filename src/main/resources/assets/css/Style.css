@@ -16,8 +16,11 @@
     -fx-background-color: transparent;
 }
 
-.scroll-pane{
+.scroll-pane-menu{
+   - fx-background: transparent;
     -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
 }
 
 .mfx-button-menu{

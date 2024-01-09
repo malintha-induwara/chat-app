@@ -1,0 +1,27 @@
+.address .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.address .scroll-bar .increment-button {
+    visibility: hidden;
+}
+
+.address .scroll-bar .decrement-button {
+    visibility: hidden;
+}
+
+.address .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.address .scroll-bar:vertical .track-background {
+    visibility: hidden;
+}
+
+.address .scroll-bar:vertical .track {
+    visibility: hidden;
+}
+
+.address .hide-thumb .scroll-bar:vertical .thumb {
+    -fx-background-color: transparent;
+}
