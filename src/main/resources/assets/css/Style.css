@@ -12,10 +12,24 @@
     -fx-font-size: 16;
 }
 
+.text-field{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane{
+    -fx-background-color: transparent;
+}
+
 
 .mfx-button{
     -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-background-color: #3498db;
     -fx-text-fill: #ffffff;
+}
+
+.mfx-button-menu{
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: transparent;
 }
