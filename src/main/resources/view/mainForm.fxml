@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -26,7 +27,7 @@
             <Font size="23.0" />
          </font>
       </Text>
-      <MFXButton ellipsisString="" graphicTextGap="15.0" layoutX="1.0" layoutY="622.0" prefHeight="77.0" prefWidth="276.0" text="Logout">
+      <MFXButton ellipsisString="" graphicTextGap="15.0" layoutX="1.0" layoutY="622.0" prefHeight="77.0" prefWidth="276.0" styleClass="mfx-button-menu" text="Logout">
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -95,5 +96,10 @@
          </children>
       </Pane>
       <Line endX="-103.0" endY="-18.0" layoutX="380.0" layoutY="78.0" startX="-103.0" startY="-78.0" stroke="#a8a5a5" />
+      <ScrollPane layoutX="277.0" layoutY="60.0" prefHeight="588.0" prefWidth="477.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
