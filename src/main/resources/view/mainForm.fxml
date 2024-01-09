@@ -1,10 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="700.0" prefWidth="800.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.MainFormController">
+<AnchorPane prefHeight="700.0" prefWidth="752.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.MainFormController">
    <children>
-      <AnchorPane layoutX="377.0" prefHeight="700.0" prefWidth="423.0" />
+      <ImageView fitHeight="700.0" fitWidth="477.0" layoutX="275.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/bgImage.jpg" />
+         </image>
+      </ImageView>
+      <Circle fill="WHITE" layoutX="138.0" layoutY="89.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" />
+      <Text layoutX="102.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kamal">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <MFXButton ellipsisString="" graphicTextGap="15.0" layoutX="1.0" layoutY="622.0" prefHeight="77.0" prefWidth="276.0" text="Logout">
+         <graphic>
+            <ImageView fitHeight="26.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/images/logout.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
+      <Line endX="173.0" layoutX="102.0" layoutY="210.0" startX="-102.0" stroke="#a8a5a5" />
+      <MFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutY="211.0" prefHeight="42.0" prefWidth="276.0" text="Chat">
+         <graphic>
+            <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/images/chat.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="15.0" />
+         </font>
+         <padding>
+            <Insets left="40.0" />
+         </padding>
+      </MFXButton>
+      <MFXButton alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutY="253.0" prefHeight="42.0" prefWidth="276.0" text="Contacts">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/images/contacts.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <padding>
+            <Insets left="40.0" />
+         </padding>
+      </MFXButton>
    </children>
 </AnchorPane>
