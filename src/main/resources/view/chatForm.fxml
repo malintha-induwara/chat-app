@@ -24,7 +24,7 @@
          </image>
       </ImageView>
       <Circle fx:id="circleImg" fill="WHITE" layoutX="138.0" layoutY="75.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" />
-      <MFXButton ellipsisString="" graphicTextGap="15.0" layoutX="1.0" layoutY="622.0" prefHeight="77.0" prefWidth="276.0" styleClass="mfx-button-menu" text="Logout">
+      <MFXButton ellipsisString="" graphicTextGap="15.0" layoutX="1.0" layoutY="622.0" onAction="#btnLogOutOnAction" prefHeight="77.0" prefWidth="276.0" styleClass="mfx-button-menu" text="Logout">
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -90,6 +90,7 @@
                </font>
             </Text>
             <Text layoutX="24.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Member Count" />
+            <Text fx:id="txtMemberCount" layoutX="129.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
          </children>
       </Pane>
       <Line endX="-103.0" endY="-18.0" layoutX="380.0" layoutY="78.0" startX="-103.0" startY="-78.0" stroke="#a8a5a5" />
@@ -107,7 +108,7 @@
             </Text>
          </children>
       </HBox>
-      <MFXButton ellipsisString="" layoutX="202.0" layoutY="1.0" onAction="#addUserOnAction" prefHeight="42.0" prefWidth="48.0">
+      <MFXButton ellipsisString="" layoutX="202.0" layoutY="1.0" onAction="#btnAddUserOnAction" prefHeight="42.0" prefWidth="48.0">
          <graphic>
             <ImageView fitHeight="63.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                <image>

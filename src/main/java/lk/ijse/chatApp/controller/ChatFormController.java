@@ -5,8 +5,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -20,7 +23,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 import lk.ijse.chatApp.util.DB;
+
+import java.io.IOException;
 
 public class ChatFormController {
 
@@ -31,6 +37,11 @@ public class ChatFormController {
 
     @FXML
     private TextField txtMassage;
+
+
+    @FXML
+    private Text txtMemberCount;
+
 
 
     @FXML
@@ -51,6 +62,8 @@ public class ChatFormController {
 
         setScrollPaneTransparent();
         setChatNameAndProfilePic();
+
+
 
         //This line is to auto scroll down when new Message is received
         vBox.heightProperty().addListener((observableValue, oldValue, newValue) -> scrollPane.setVvalue((Double) newValue));
@@ -171,10 +184,34 @@ public class ChatFormController {
 
 
     @FXML
-    void addUserOnAction(ActionEvent event) {
-
+    void btnAddUserOnAction(ActionEvent event) throws IOException {
+        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/createAccountForm.fxml"));
+        Scene scene = new Scene(rootNode);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
 
+    @FXML
+    void btnLogOutOnAction(ActionEvent event) throws IOException {
+        loadCreateAccountForm();
+        closeWindow();
+    }
+
+    private void loadCreateAccountForm() throws IOException {
+        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/createAccountForm.fxml"));
+        Scene scene = new Scene(rootNode);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) txtMassage.getScene().getWindow();
+        stage.close();
+    }
 
 
 }
