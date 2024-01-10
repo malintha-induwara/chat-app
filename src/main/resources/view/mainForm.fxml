@@ -97,7 +97,7 @@
          </children>
       </Pane>
       <Line endX="-103.0" endY="-18.0" layoutX="380.0" layoutY="78.0" startX="-103.0" startY="-78.0" stroke="#a8a5a5" />
-      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="276.0" layoutY="61.0" prefHeight="589.0" prefWidth="477.0" vbarPolicy="NEVER">
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="276.0" layoutY="56.0" prefHeight="596.0" prefWidth="477.0" vbarPolicy="NEVER">
          <content>
             <VBox fx:id="vBox" prefHeight="200.0" prefWidth="100.0" />
          </content>

@@ -1,5 +1,6 @@
 package lk.ijse.chatApp.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -34,7 +35,23 @@ public class MainFormController {
 
     public void initialize(){
 
+        setScrollPaneTransparent();
+        notification("Connected");
+        receiveMassage("Hello How are you");
 
+
+
+
+    }
+
+    private void setScrollPaneTransparent() {
+        scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
+        Platform.runLater(() -> {
+            scrollPane.lookup(".viewport").setStyle("-fx-background-color: transparent;");
+            scrollPane.lookup(".scroll-bar").setStyle("-fx-background-color: transparent;");
+            scrollPane.lookup(".scroll-bar:vertical").setStyle("-fx-background-color: transparent;");
+
+        });
     }
 
 
