@@ -3,6 +3,7 @@ package lk.ijse.chatApp.controller;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,8 @@ import javafx.stage.Stage;
 import lk.ijse.chatApp.util.DB;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ChatFormController {
 
@@ -58,15 +61,27 @@ public class ChatFormController {
     private String name;
 
 
+
     public void initialize(){
 
         setScrollPaneTransparent();
         setChatNameAndProfilePic();
 
-
+        setUserCount();
 
         //This line is to auto scroll down when new Message is received
         vBox.heightProperty().addListener((observableValue, oldValue, newValue) -> scrollPane.setVvalue((Double) newValue));
+
+        //Set Listener to Observable Map to update the userount
+        DB.users.addListener((MapChangeListener<String, Image>) change -> setUserCount());
+
+    }
+
+    private void setUserCount() {
+        Platform.runLater(()->{
+            String count = String.valueOf(DB.users.size());
+            txtMemberCount.setText(count);
+        });
     }
 
     public void setName(String name) {
@@ -83,7 +98,6 @@ public class ChatFormController {
             //Set Image
             Image profileImage = DB.users.get(name);
             circleImg.setFill(new ImagePattern(profileImage));
-
 
         });
     }
@@ -195,6 +209,11 @@ public class ChatFormController {
 
     @FXML
     void btnLogOutOnAction(ActionEvent event) throws IOException {
+
+        //Remove User
+        DB.users.remove(this.name);
+
+
         loadCreateAccountForm();
         closeWindow();
     }

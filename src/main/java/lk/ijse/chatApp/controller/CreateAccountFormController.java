@@ -84,6 +84,10 @@ public class CreateAccountFormController {
     }
 
     private boolean validateFields() {
+
+
+
+
         String name = txtFieldName.getText();
         boolean isNameValidate= Pattern.matches("[A-Za-z]{3,}",name);
         if (!isNameValidate){
