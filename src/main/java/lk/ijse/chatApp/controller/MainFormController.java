@@ -40,14 +40,37 @@ public class MainFormController {
 
     @FXML
     void btnSendOnAction(MouseEvent event) {
-
+        sendMassage();
 
     }
 
 
     @FXML
     void txtFieldOnAction(ActionEvent event) {
+        sendMassage();
+    }
 
+    private void sendMassage() {
+        String massage = txtMassage.getText();
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.BASELINE_RIGHT);
+
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        Text text = new Text(massage);
+        TextFlow textFlow = new TextFlow(text);
+        textFlow.setStyle(
+                "-fx-color: rgb(239, 242, 255);" +
+                        "-fx-background-color: rgb(15, 125, 242);" +
+                        "-fx-background-radius: 20px;");
+
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        text.setFill(Color.color(0.934, 0.925, 0.996));
+
+        hBox.getChildren().add(textFlow);
+        vBox.getChildren().add(hBox);
+
+        txtMassage.clear();
     }
 
 
