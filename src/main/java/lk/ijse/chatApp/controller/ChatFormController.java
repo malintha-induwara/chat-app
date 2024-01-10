@@ -9,14 +9,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import lk.ijse.chatApp.util.DB;
 
 public class ChatFormController {
 
@@ -29,20 +33,46 @@ public class ChatFormController {
     private TextField txtMassage;
 
 
+    @FXML
+    private Circle circleImg;
+
+
+    @FXML
+    private Text txtName;
+
 
     @FXML
     private VBox vBox;
 
+    private String name;
 
 
     public void initialize(){
 
         setScrollPaneTransparent();
-        notification("Connected");
-        receiveMassage("Nimath","Hello How are you");
+        setChatNameAndProfilePic();
 
         //This line is to auto scroll down when new Message is received
         vBox.heightProperty().addListener((observableValue, oldValue, newValue) -> scrollPane.setVvalue((Double) newValue));
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private void setChatNameAndProfilePic() {
+        Platform.runLater(()->{
+
+            //Set Name
+            txtName.setText(this.name);
+
+
+            //Set Image
+            Image profileImage = DB.users.get(name);
+            circleImg.setFill(new ImagePattern(profileImage));
+
+
+        });
     }
 
     private void setScrollPaneTransparent() {
@@ -59,7 +89,6 @@ public class ChatFormController {
     @FXML
     void btnSendOnAction(MouseEvent event) {
         sendMassage();
-
     }
 
 
@@ -140,6 +169,11 @@ public class ChatFormController {
     }
 
 
+
+    @FXML
+    void addUserOnAction(ActionEvent event) {
+
+    }
 
 
 

@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -22,12 +23,7 @@
             <Image url="@../assets/images/bgImage.jpg" />
          </image>
       </ImageView>
-      <Circle fill="WHITE" layoutX="138.0" layoutY="89.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" />
-      <Text layoutX="101.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Text>
+      <Circle fx:id="circleImg" fill="WHITE" layoutX="138.0" layoutY="75.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" />
       <MFXButton ellipsisString="" graphicTextGap="15.0" layoutX="1.0" layoutY="622.0" prefHeight="77.0" prefWidth="276.0" styleClass="mfx-button-menu" text="Logout">
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -70,8 +66,8 @@
       </MFXButton>
       <Pane layoutX="276.0" layoutY="648.0" prefHeight="51.0" prefWidth="477.0" styleClass="pane">
          <children>
-            <TextField fx:id="txtMassage" layoutX="30.0" layoutY="5.0" onAction="#txtFieldOnAction" prefHeight="42.0" prefWidth="329.0" promptText="Write a message..." />
-            <ImageView fitHeight="33.0" fitWidth="34.0" layoutX="413.0" layoutY="9.0" onMouseClicked="#btnSendOnAction" pickOnBounds="true" preserveRatio="true">
+            <TextField fx:id="txtMassage" layoutX="30.0" layoutY="5.0" onAction="#txtFieldOnAction" prefHeight="42.0" prefWidth="344.0" promptText="Write a message..." />
+            <ImageView fitHeight="33.0" fitWidth="34.0" layoutX="430.0" layoutY="9.0" onMouseClicked="#btnSendOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/images/send.png" />
                </image>
@@ -79,7 +75,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="27.0" fitWidth="41.0" layoutX="372.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="27.0" fitWidth="41.0" layoutX="388.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/images/emoji.png" />
                </image>
@@ -102,5 +98,23 @@
             <VBox fx:id="vBox" prefHeight="200.0" prefWidth="100.0" />
          </content>
       </ScrollPane>
+      <HBox alignment="CENTER" layoutY="133.0" prefHeight="42.0" prefWidth="276.0">
+         <children>
+            <Text fx:id="txtName" strokeType="OUTSIDE" strokeWidth="0.0" text="-">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <MFXButton ellipsisString="" layoutX="202.0" layoutY="1.0" onAction="#addUserOnAction" prefHeight="42.0" prefWidth="48.0">
+         <graphic>
+            <ImageView fitHeight="63.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/images/addUser.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
    </children>
 </AnchorPane>

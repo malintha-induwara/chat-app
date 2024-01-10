@@ -30,6 +30,7 @@ public class CreateAccountFormController {
 
 
 
+
     public void initialize(){
         loadDefaultImage();
         txtFieldName.requestFocus();
@@ -59,7 +60,16 @@ public class CreateAccountFormController {
     }
 
     private void loadChatForm() throws IOException {
-        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/chatForm.fxml"));
+
+
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/chatForm.fxml"));
+        Parent rootNode = loader.load();
+
+
+        //Getting reference to the ChatController
+        ChatFormController chatFormController = loader.getController();
+        chatFormController.setName(txtFieldName.getText());
+
         Scene scene = new Scene(rootNode);
         Stage stage = new Stage();
         stage.setScene(scene);
