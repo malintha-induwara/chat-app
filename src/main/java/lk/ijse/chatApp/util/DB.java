@@ -11,9 +11,5 @@ public class DB {
 
     public static ObservableMap<String, Image> users = FXCollections.observableHashMap();
 
-    public static void main(String[] args) {
-
-    }
-
 }
 

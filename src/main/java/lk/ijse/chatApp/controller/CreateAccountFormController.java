@@ -85,16 +85,24 @@ public class CreateAccountFormController {
 
     private boolean validateFields() {
 
-
-
-
         String name = txtFieldName.getText();
+
         boolean isNameValidate= Pattern.matches("[A-Za-z]{3,}",name);
         if (!isNameValidate){
             txtFieldName.requestFocus();
             txtFieldName.getStyleClass().add("mfx-text-field-error");
             return false;
         }
+
+        //Check User Already exists
+        boolean isUserExists=DB.users.containsKey(name);
+        if (isUserExists){
+            txtFieldName.requestFocus();
+            txtFieldName.getStyleClass().add("mfx-text-field-error");
+            return false;
+        }
+
+
         txtFieldName.getStyleClass().removeAll("mfx-text-field-error");
         return true;
     }
