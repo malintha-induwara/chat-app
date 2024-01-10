@@ -73,6 +73,29 @@ public class MainFormController {
         txtMassage.clear();
     }
 
+    private void notification(String massage){
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER);
+
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        Text text = new Text(massage);
+        text.setFont(Font.font("Arial", FontWeight.BLACK, 13));
+        TextFlow textFlow = new TextFlow(text);
+        textFlow.setStyle(
+                "-fx-color: rgb(239, 242, 255);" +
+                        "-fx-background-color: rgb(255,255,255);" +
+                        "-fx-background-radius: 5px;");
+
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        text.setFill(Color.rgb(84, 83, 83));
+
+        hBox.getChildren().add(textFlow);
+        vBox.getChildren().add(hBox);
+    }
+
+
+
 
 
 }
