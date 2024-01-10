@@ -1,6 +1,8 @@
 package lk.ijse.chatApp.controller;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -37,16 +39,15 @@ public class ChatFormController {
 
         setScrollPaneTransparent();
         notification("Connected");
-        receiveMassage("Hello How are you");
+        receiveMassage("Nimath","Hello How are you");
 
-
-
-
+        //This line is to auto scroll down when new Message is received
+        vBox.heightProperty().addListener((observableValue, oldValue, newValue) -> scrollPane.setVvalue((Double) newValue));
     }
 
     private void setScrollPaneTransparent() {
-        scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
         Platform.runLater(() -> {
+            scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
             scrollPane.lookup(".viewport").setStyle("-fx-background-color: transparent;");
             scrollPane.lookup(".scroll-bar").setStyle("-fx-background-color: transparent;");
             scrollPane.lookup(".scroll-bar:vertical").setStyle("-fx-background-color: transparent;");
@@ -111,21 +112,26 @@ public class ChatFormController {
         vBox.getChildren().add(hBox);
     }
 
-    private void receiveMassage(String massage){
+    private void receiveMassage(String sender, String massage){
 
 
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.BASELINE_LEFT);
 
+        Text senderText = new Text(sender + "\n");
+        senderText.setFont(Font.font("Arial", FontWeight.BLACK, 12));
+
+
         hBox.setPadding(new Insets(5, 5, 5, 10));
         Text text = new Text(massage);
-        TextFlow textFlow = new TextFlow(text);
+        TextFlow textFlow = new TextFlow(senderText,text);
         textFlow.setStyle(
                 "-fx-color: rgb(239, 242, 255);" +
                         "-fx-background-color: rgb(255,255,255);" +
                         "-fx-background-radius: 20px;");
 
-        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        textFlow.setPadding(new Insets(5, 20, 5, 10));
+        textFlow.setLineSpacing(5);
         text.setFill(Color.rgb(0,0,0));
 
         hBox.getChildren().add(textFlow);

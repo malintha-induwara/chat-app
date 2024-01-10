@@ -32,6 +32,7 @@ public class CreateAccountFormController {
 
     public void initialize(){
         loadDefaultImage();
+        txtFieldName.requestFocus();
     }
 
 
