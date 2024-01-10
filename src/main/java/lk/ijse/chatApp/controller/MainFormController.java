@@ -94,6 +94,28 @@ public class MainFormController {
         vBox.getChildren().add(hBox);
     }
 
+    private void receiveMassage(String massage){
+
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.BASELINE_LEFT);
+
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        Text text = new Text(massage);
+        TextFlow textFlow = new TextFlow(text);
+        textFlow.setStyle(
+                "-fx-color: rgb(239, 242, 255);" +
+                        "-fx-background-color: rgb(255,255,255);" +
+                        "-fx-background-radius: 20px;");
+
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        text.setFill(Color.rgb(0,0,0));
+
+        hBox.getChildren().add(textFlow);
+        vBox.getChildren().add(hBox);
+
+    }
+
 
 
 
