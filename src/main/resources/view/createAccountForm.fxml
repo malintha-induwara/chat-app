@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="500.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.CreateAccountFormController">
+   <children>
+      <MFXTextField fx:id="txtFieldName" floatingText="Enter Your Name" layoutX="162.0" layoutY="360.0" onAction="#txtFieldNameOnAction" prefHeight="45.0" prefWidth="183.0" styleClass="mfx-text-field" />
+      <MFXButton buttonType="RAISED" layoutX="176.0" layoutY="447.0" onAction="#btnChatOnAction" prefHeight="50.0" prefWidth="150.0" rippleColor="#979797" styleClass="mfx-button-login" text="Chat" />
+      <Circle fx:id="circleImg" fill="WHITE" layoutX="254.0" layoutY="249.0" onMouseClicked="#circleImgOnAction" radius="79.0" stroke="BLACK" strokeType="INSIDE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Circle>
+      <Label layoutX="204.0" layoutY="38.0" text="V-Chat" textFill="#3498db">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="134.0" layoutY="87.0" text="Start with entering your name &#10;and adding Profile picture" textAlignment="CENTER" textFill="#6b6b6b">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

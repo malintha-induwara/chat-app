@@ -20,14 +20,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-public class LoginFormController {
-
-    @FXML
-    private MFXTextField txtFieldName;
+public class CreateAccountFormController {
 
     @FXML
     private Circle circleImg;
 
+    @FXML
+    private MFXTextField txtFieldName;
 
 
 
@@ -35,11 +34,11 @@ public class LoginFormController {
         loadDefaultImage();
     }
 
+
     private void loadDefaultImage() {
         Image image = new Image("assets/images/user.png");
         circleImg.setFill(new ImagePattern(image));
     }
-
 
     @FXML
     void btnChatOnAction(ActionEvent event) throws IOException {
@@ -53,13 +52,13 @@ public class LoginFormController {
         //Save on the array list
         DB.users.put(txtFieldName.getText(),userImage);
 
-        loadMainForm();
+        loadChatForm();
         closeWindow();
 
     }
 
-    private void loadMainForm() throws IOException {
-        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/mainForm.fxml"));
+    private void loadChatForm() throws IOException {
+        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/chatForm.fxml"));
         Scene scene = new Scene(rootNode);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -85,6 +84,7 @@ public class LoginFormController {
         return true;
     }
 
+
     @FXML
     void circleImgOnAction(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -106,11 +106,11 @@ public class LoginFormController {
         );
     }
 
-
     @FXML
     void txtFieldNameOnAction(ActionEvent event) throws IOException {
         btnChatOnAction(event);
     }
+
 
 
 }
