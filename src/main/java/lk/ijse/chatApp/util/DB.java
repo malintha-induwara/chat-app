@@ -8,7 +8,6 @@ import java.util.HashMap;
 import javafx.collections.MapChangeListener;
 
 public class DB {
-
     public static ObservableMap<String, Image> users = FXCollections.observableHashMap();
 
 }

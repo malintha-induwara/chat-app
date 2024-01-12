@@ -1,8 +1,6 @@
 package lk.ijse.chatApp.controller;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,8 +26,6 @@ import javafx.stage.Stage;
 import lk.ijse.chatApp.util.DB;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ChatFormController {
 
@@ -46,7 +42,6 @@ public class ChatFormController {
     private Text txtMemberCount;
 
 
-
     @FXML
     private Circle circleImg;
 
@@ -61,8 +56,7 @@ public class ChatFormController {
     private String name;
 
 
-
-    public void initialize(){
+    public void initialize() {
 
         setScrollPaneTransparent();
         setChatNameAndProfilePic();
@@ -78,7 +72,7 @@ public class ChatFormController {
     }
 
     private void setUserCount() {
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             String count = String.valueOf(DB.users.size());
             txtMemberCount.setText(count);
         });
@@ -89,7 +83,7 @@ public class ChatFormController {
     }
 
     private void setChatNameAndProfilePic() {
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
 
             //Set Name
             txtName.setText(this.name);
@@ -147,7 +141,7 @@ public class ChatFormController {
         txtMassage.clear();
     }
 
-    private void notification(String massage){
+    private void notification(String massage) {
 
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
@@ -168,7 +162,7 @@ public class ChatFormController {
         vBox.getChildren().add(hBox);
     }
 
-    private void receiveMassage(String sender, String massage){
+    private void receiveMassage(String sender, String massage) {
 
 
         HBox hBox = new HBox();
@@ -180,7 +174,7 @@ public class ChatFormController {
 
         hBox.setPadding(new Insets(5, 5, 5, 10));
         Text text = new Text(massage);
-        TextFlow textFlow = new TextFlow(senderText,text);
+        TextFlow textFlow = new TextFlow(senderText, text);
         textFlow.setStyle(
                 "-fx-color: rgb(239, 242, 255);" +
                         "-fx-background-color: rgb(255,255,255);" +
@@ -188,13 +182,12 @@ public class ChatFormController {
 
         textFlow.setPadding(new Insets(5, 20, 5, 10));
         textFlow.setLineSpacing(5);
-        text.setFill(Color.rgb(0,0,0));
+        text.setFill(Color.rgb(0, 0, 0));
 
         hBox.getChildren().add(textFlow);
         vBox.getChildren().add(hBox);
 
     }
-
 
 
     @FXML

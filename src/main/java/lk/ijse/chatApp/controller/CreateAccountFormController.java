@@ -29,9 +29,7 @@ public class CreateAccountFormController {
     private MFXTextField txtFieldName;
 
 
-
-
-    public void initialize(){
+    public void initialize() {
         loadDefaultImage();
         txtFieldName.requestFocus();
     }
@@ -44,15 +42,15 @@ public class CreateAccountFormController {
 
     @FXML
     void btnChatOnAction(ActionEvent event) throws IOException {
-        boolean isValidated=validateFields();
-        if (!isValidated){
+        boolean isValidated = validateFields();
+        if (!isValidated) {
             return;
         }
         ImagePattern imagePattern = (ImagePattern) circleImg.getFill();
         Image userImage = imagePattern.getImage();
 
         //Save on the array list
-        DB.users.put(txtFieldName.getText(),userImage);
+        DB.users.put(txtFieldName.getText(), userImage);
 
         loadChatForm();
         closeWindow();
@@ -74,7 +72,7 @@ public class CreateAccountFormController {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.centerOnScreen();
-        stage.setTitle(txtFieldName.getText()+"'s Chat");
+        stage.setTitle(txtFieldName.getText() + "'s Chat");
         stage.show();
     }
 
@@ -87,16 +85,16 @@ public class CreateAccountFormController {
 
         String name = txtFieldName.getText();
 
-        boolean isNameValidate= Pattern.matches("[A-Za-z]{3,}",name);
-        if (!isNameValidate){
+        boolean isNameValidate = Pattern.matches("[A-Za-z]{3,}", name);
+        if (!isNameValidate) {
             txtFieldName.requestFocus();
             txtFieldName.getStyleClass().add("mfx-text-field-error");
             return false;
         }
 
         //Check User Already exists
-        boolean isUserExists=DB.users.containsKey(name);
-        if (isUserExists){
+        boolean isUserExists = DB.users.containsKey(name);
+        if (isUserExists) {
             txtFieldName.requestFocus();
             txtFieldName.getStyleClass().add("mfx-text-field-error");
             return false;
@@ -133,7 +131,6 @@ public class CreateAccountFormController {
     void txtFieldNameOnAction(ActionEvent event) throws IOException {
         btnChatOnAction(event);
     }
-
 
 
 }
