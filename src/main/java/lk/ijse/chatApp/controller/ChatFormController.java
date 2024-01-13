@@ -25,7 +25,12 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import lk.ijse.chatApp.util.DB;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ChatFormController {
 
@@ -56,6 +61,14 @@ public class ChatFormController {
     private String name;
 
 
+    private Socket socket;
+    private DataInputStream inputStream;
+    private DataOutputStream outputStream;
+
+    String message;
+
+
+
     public void initialize() {
 
         setScrollPaneTransparent();
@@ -69,6 +82,38 @@ public class ChatFormController {
         //Set Listener to Observable Map to update the userount
         DB.users.addListener((MapChangeListener<String, Image>) change -> setUserCount());
 
+
+        //idk wtf is this but apparently its a another lambda expression
+        //Original code was
+        //Runnable runnable = ()->{ socketInitialize())};
+
+        Runnable runnable = this::socketInitialize;
+
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        service.submit(runnable);
+
+    }
+
+    private void socketInitialize() {
+
+        try {
+            socket=new Socket("localhost",3030);
+
+            do {
+                inputStream = new DataInputStream(socket.getInputStream());
+                outputStream = new DataOutputStream(socket.getOutputStream());
+                message=inputStream.readUTF();
+
+                Platform.runLater(()->{
+                    receiveMassage("Server",message);
+                });
+
+                System.out.println(message);
+            }while (!message.equals("end-chat"));
+
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private void setUserCount() {
