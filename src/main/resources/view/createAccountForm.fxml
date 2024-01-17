@@ -11,13 +11,13 @@
 
 <AnchorPane fx:id="createAccountPane" prefHeight="640.0" prefWidth="460.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.CreateAccountFormController">
    <children>
-      <MFXTextField fx:id="txtUserName" floatingText="Enter Username" layoutX="90.0" layoutY="326.0" onAction="#txtUserNameOnAction" prefWidth="290.0" styleClass="mfx-text-field" />
+      <MFXTextField fx:id="txtUserName" floatingText="Enter Username" layoutX="90.0" layoutY="326.0" onAction="#txtUserNameOnAction" prefHeight="60.0" prefWidth="290.0" styleClass="mfx-text-field" />
       <Circle fx:id="circleImg" fill="WHITE" layoutX="234.0" layoutY="227.0" onMouseClicked="#circleImgOnAction" radius="79.0" stroke="BLACK" strokeType="INSIDE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Circle>
-      <Label layoutX="184.0" layoutY="39.0" text="V-Chat" textFill="#3498db">
+      <Label layoutX="188.0" layoutY="35.0" text="V-Chat" textFill="#3498db">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -27,9 +27,9 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <MFXPasswordField fx:id="txtPassword" floatingText="Password" layoutX="91.0" layoutY="396.0" prefWidth="290.0" />
-      <MFXPasswordField fx:id="txtPasswordReEnter" floatingText="Re Enter Password" layoutX="90.0" layoutY="465.0" prefWidth="290.0" />
-      <MFXButton buttonType="RAISED" layoutX="91.0" layoutY="546.0" onAction="#btnCreateAccountOnAction" prefHeight="50.0" prefWidth="135.0" rippleColor="#979797" styleClass="mfx-button-createAccount" text="Create Account" />
-      <MFXButton buttonType="RAISED" layoutX="246.0" layoutY="546.0" onAction="#btnCancelOnAction" prefHeight="50.0" prefWidth="135.0" rippleColor="#979797" styleClass="mfx-button-login" text="Cancel" />
+      <MFXPasswordField fx:id="txtPassword" floatingText="Password" layoutX="90.0" layoutY="395.0" prefHeight="60.0" prefWidth="290.0" />
+      <MFXPasswordField fx:id="txtPasswordReEnter" floatingText="Re Enter Password" layoutX="90.0" layoutY="465.0" prefHeight="60.0" prefWidth="290.0" />
+      <MFXButton buttonType="RAISED" layoutX="90.0" layoutY="545.0" onAction="#btnCreateAccountOnAction" prefHeight="50.0" prefWidth="135.0" rippleColor="#979797" styleClass="mfx-button-login" text="Create Account" />
+      <MFXButton buttonType="RAISED" layoutX="245.0" layoutY="545.0" onAction="#btnCancelOnAction" prefHeight="50.0" prefWidth="135.0" rippleColor="#979797" styleClass="mfx-button-createAccount" text="Cancel" />
    </children>
 </AnchorPane>

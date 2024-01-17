@@ -19,7 +19,7 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/welcomeForm.fxml"));
+        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/loginForm.fxml"));
         UserAgentBuilder.builder()
                 .themes(JavaFXThemes.MODENA) // Optional if you don't need JavaFX's default theme, still recommended though
                 .themes(MaterialFXStylesheets.forAssemble(true)) // Adds the MaterialFX's default theme. The boolean argument is to include legacy controls

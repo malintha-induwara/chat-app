@@ -1,5 +1,6 @@
 package lk.ijse.chatApp.controller;
 
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,6 +36,14 @@ public class CreateAccountFormController {
     private MFXTextField txtUserName;
 
 
+    @FXML
+    private MFXPasswordField txtPassword;
+
+    @FXML
+    private MFXPasswordField txtPasswordReEnter;
+
+
+
     public void initialize() {
         loadDefaultImage();
         txtUserName.requestFocus();
@@ -42,7 +51,7 @@ public class CreateAccountFormController {
 
 
     private void loadDefaultImage() {
-        Image image = new Image("assets/images/user.png");
+        Image image = new Image("assets/images/users/user.png");
         circleImg.setFill(new ImagePattern(image));
     }
 
@@ -64,7 +73,6 @@ public class CreateAccountFormController {
     }
 
     private void loadChatForm() throws IOException {
-
 
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/chatForm.fxml"));
         Parent rootNode = loader.load();
@@ -140,7 +148,7 @@ public class CreateAccountFormController {
 
     @FXML
     void btnCancelOnAction(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/welcomeForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/loginForm.fxml"));
         Pane registerPane = fxmlLoader.load();
         createAccountPane.getChildren().clear();
         createAccountPane.getChildren().add(registerPane);
