@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
@@ -26,12 +28,16 @@ public class CreateAccountFormController {
     private Circle circleImg;
 
     @FXML
-    private MFXTextField txtFieldName;
+    private AnchorPane createAccountPane;
+
+
+    @FXML
+    private MFXTextField txtUserName;
 
 
     public void initialize() {
         loadDefaultImage();
-        txtFieldName.requestFocus();
+        txtUserName.requestFocus();
     }
 
 
@@ -50,7 +56,7 @@ public class CreateAccountFormController {
         Image userImage = imagePattern.getImage();
 
         //Save on the array list
-        DB.users.put(txtFieldName.getText(), userImage);
+        DB.users.put(txtUserName.getText(), userImage);
 
         loadChatForm();
         closeWindow();
@@ -66,42 +72,42 @@ public class CreateAccountFormController {
 
         //Getting reference to the ChatController
         ChatFormController chatFormController = loader.getController();
-        chatFormController.setName(txtFieldName.getText());
+        chatFormController.setName(txtUserName.getText());
 
         Scene scene = new Scene(rootNode);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.centerOnScreen();
-        stage.setTitle(txtFieldName.getText() + "'s Chat");
+        stage.setTitle(txtUserName.getText() + "'s Chat");
         stage.show();
     }
 
     private void closeWindow() {
-        Stage stage = (Stage) txtFieldName.getScene().getWindow();
+        Stage stage = (Stage) txtUserName.getScene().getWindow();
         stage.close();
     }
 
     private boolean validateFields() {
 
-        String name = txtFieldName.getText();
+        String name = txtUserName.getText();
 
         boolean isNameValidate = Pattern.matches("[A-Za-z]{3,}", name);
         if (!isNameValidate) {
-            txtFieldName.requestFocus();
-            txtFieldName.getStyleClass().add("mfx-text-field-error");
+            txtUserName.requestFocus();
+            txtUserName.getStyleClass().add("mfx-text-field-error");
             return false;
         }
 
         //Check User Already exists
         boolean isUserExists = DB.users.containsKey(name);
         if (isUserExists) {
-            txtFieldName.requestFocus();
-            txtFieldName.getStyleClass().add("mfx-text-field-error");
+            txtUserName.requestFocus();
+            txtUserName.getStyleClass().add("mfx-text-field-error");
             return false;
         }
 
 
-        txtFieldName.getStyleClass().removeAll("mfx-text-field-error");
+        txtUserName.getStyleClass().removeAll("mfx-text-field-error");
         return true;
     }
 
@@ -128,9 +134,23 @@ public class CreateAccountFormController {
     }
 
     @FXML
-    void txtFieldNameOnAction(ActionEvent event) throws IOException {
+    void txtUserNameOnAction(ActionEvent event) throws IOException {
         btnChatOnAction(event);
     }
+
+    @FXML
+    void btnCancelOnAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/welcomeForm.fxml"));
+        Pane registerPane = fxmlLoader.load();
+        createAccountPane.getChildren().clear();
+        createAccountPane.getChildren().add(registerPane);
+    }
+
+    @FXML
+    void btnCreateAccountOnAction(ActionEvent event) {
+
+    }
+
 
 
 }

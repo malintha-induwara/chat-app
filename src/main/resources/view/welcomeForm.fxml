@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="welcomePane" prefHeight="550.0" prefWidth="500.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.WelcomeFormController">
+<AnchorPane fx:id="welcomePane" prefHeight="640.0" prefWidth="460.0" styleClass="pane" stylesheets="@../assets/css/Style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatApp.controller.WelcomeFormController">
    <children>
-      <MFXButton buttonType="RAISED" layoutX="176.0" layoutY="447.0" onAction="#btnLetsGoOnAction" prefHeight="50.0" prefWidth="150.0" rippleColor="#979797" styleClass="mfx-button-login" text="Lets GO" />
-      <Label layoutX="167.0" layoutY="108.0" text="Get Started" textFill="#545454">
+      <MFXButton buttonType="RAISED" layoutX="90.0" layoutY="536.0" onAction="#btnLoginOnAction" prefHeight="50.0" prefWidth="135.0" rippleColor="#979797" styleClass="mfx-button-login" text="Login" />
+      <Label layoutX="151.0" layoutY="85.0" text="Get Started" textFill="#545454">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="163.0" layoutY="152.0" prefHeight="19.0" prefWidth="188.0" text="Login to the Applicaiton" textFill="#6b6b6b" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="149.0">
+      <Label layoutX="142.0" layoutY="127.0" prefHeight="19.0" prefWidth="192.0" text="Create Account Or Login" textFill="#6b6b6b" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="127.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <ImageView fitHeight="219.0" fitWidth="279.0" layoutX="104.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="205.0" fitWidth="277.0" layoutX="93.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/images/icon.png" />
          </image>
       </ImageView>
-      <Label layoutX="204.0" layoutY="38.0" text="V-Chat" textFill="#3498db">
+      <Label layoutX="189.0" layoutY="37.0" text="V-Chat" textFill="#3498db">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
+      <MFXButton buttonType="RAISED" layoutX="245.0" layoutY="536.0" onAction="#btnCreateAccountOnAction" prefHeight="50.0" prefWidth="135.0" rippleColor="#979797" styleClass="mfx-button-createAccount" text="Create Account" />
+      <MFXTextField fx:id="txtUsername" floatingText="Username" floatingTextGap="4.0" layoutX="90.0" layoutY="378.0" prefWidth="290.0" />
+      <MFXPasswordField fx:id="txtPassword" floatingText="Password" floatingTextGap="4.0" layoutX="90.0" layoutY="454.0" prefWidth="290.0" />
    </children>
 </AnchorPane>

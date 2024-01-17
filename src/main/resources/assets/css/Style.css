@@ -30,9 +30,17 @@
 }
 
 .mfx-button-login{
-    -fx-font-size: 15px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-background-color: #3498db;
+    -fx-text-fill: #ffffff;
+}
+
+
+.mfx-button-createAccount{
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: #2c2d33;
     -fx-text-fill: #ffffff;
 }
 
