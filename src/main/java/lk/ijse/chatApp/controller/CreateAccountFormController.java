@@ -16,12 +16,14 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import lk.ijse.chatApp.model.UserModel;
 import lk.ijse.chatApp.util.UserCountUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class CreateAccountFormController {
@@ -44,6 +46,7 @@ public class CreateAccountFormController {
     private MFXPasswordField txtPasswordReEnter;
 
 
+    UserModel userModel = new UserModel();
 
     public void initialize() {
         loadDefaultImage();
@@ -71,6 +74,7 @@ public class CreateAccountFormController {
     private void loadChatForm() throws IOException {
 
 
+
     }
 
     private void closeWindow() {
@@ -78,7 +82,7 @@ public class CreateAccountFormController {
         stage.close();
     }
 
-    private boolean validateFields() {
+    private boolean validateFields() throws SQLException {
 
         String name = txtUserName.getText();
 
@@ -90,15 +94,28 @@ public class CreateAccountFormController {
         }
 
         //Check User Already exists
-        boolean isUserExists = UserCountUtil.users.containsKey(name);
+        boolean isUserExists = userModel.isExistsUser(name);
         if (isUserExists) {
             txtUserName.requestFocus();
             txtUserName.getStyleClass().add("mfx-text-field-error");
             return false;
         }
 
+        //CheckPassword are Match
+        if (!(txtPassword.getText().equals(txtPasswordReEnter.getText()))){
+            txtPassword.requestFocus();
+            txtPasswordReEnter.requestFocus();
+
+            txtPassword.getStyleClass().add("mfx-text-field-error");
+            txtPasswordReEnter.getStyleClass().add("mfx-text-field-error");
+            return false;
+        }
+
+
 
         txtUserName.getStyleClass().removeAll("mfx-text-field-error");
+        txtPassword.getStyleClass().removeAll("mfx-text-field-error");
+        txtPasswordReEnter.getStyleClass().removeAll("mfx-text-field-error");
         return true;
     }
 
@@ -138,15 +155,36 @@ public class CreateAccountFormController {
     }
 
     @FXML
-    void btnCreateAccountOnAction(ActionEvent event) {
-        boolean isValidated = validateFields();
-        if (!isValidated) {
-            return;
+    void btnCreateAccountOnAction(ActionEvent event) throws IOException {
+        try {
+            boolean isValidated = validateFields();
+            if (!isValidated) {
+                return;
+            }
+
+            String url = imageSave();
+
+            //Save User
+           boolean isSaved = userModel.saveUser(txtUserName.getText(),txtPassword.getText(),url);
+
+           if (!isSaved){
+               new Alert(Alert.AlertType.ERROR,"Something went wrong user didnt saved").show();
+               return;
+           }
+
+           loadLoginForm();
+
+        }catch (SQLException e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
 
-        String url = imageSave();
+    }
 
-
+    private void loadLoginForm() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/loginForm.fxml"));
+        Pane registerPane = fxmlLoader.load();
+        createAccountPane.getChildren().clear();
+        createAccountPane.getChildren().add(registerPane);
     }
 
     private String imageSave() {

@@ -26,5 +26,23 @@ public class UserModel {
         resultSet.next();
         return resultSet.getString(1);
     }
+
+    public boolean isExistsUser(String userName) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM user WHERE username = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setString(1,userName);
+        return pstm.executeQuery().next();
+    }
+
+    public boolean saveUser(String userName, String password, String url) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "INSERT INTO user VALUES (?,?,?)";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setString(1,userName);
+        pstm.setString(2,password);
+        pstm.setString(3,url);
+        return pstm.executeUpdate()>0;
+    }
 }
 
