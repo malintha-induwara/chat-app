@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +20,8 @@ import lk.ijse.chatApp.util.UserCountUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
 public class CreateAccountFormController {
@@ -55,18 +58,13 @@ public class CreateAccountFormController {
 
     @FXML
     void btnChatOnAction(ActionEvent event) throws IOException {
-        boolean isValidated = validateFields();
-        if (!isValidated) {
-            return;
-        }
-        ImagePattern imagePattern = (ImagePattern) circleImg.getFill();
-        Image userImage = imagePattern.getImage();
+
 
         //Save on the array list
-        UserCountUtil.users.put(txtUserName.getText(), userImage);
-
-        loadChatForm();
-        closeWindow();
+//        UserCountUtil.users.put(txtUserName.getText(), userImage);
+//
+//        loadChatForm();
+//        closeWindow();
 
     }
 
@@ -128,7 +126,7 @@ public class CreateAccountFormController {
 
     @FXML
     void txtUserNameOnAction(ActionEvent event) throws IOException {
-        btnChatOnAction(event);
+
     }
 
     @FXML
@@ -141,10 +139,29 @@ public class CreateAccountFormController {
 
     @FXML
     void btnCreateAccountOnAction(ActionEvent event) {
+        boolean isValidated = validateFields();
+        if (!isValidated) {
+            return;
+        }
+
+        String url = imageSave();
+
 
     }
 
+    private String imageSave() {
+        try {
+            ImagePattern imagePattern = (ImagePattern) circleImg.getFill();
+            Image userImage = imagePattern.getImage();
+            URI uri = new URI(userImage.getUrl());
 
+            File file = new File(uri);
 
+            return file.getAbsolutePath();
+        } catch (URISyntaxException e) {
+            new Alert(Alert.AlertType.ERROR,"Check The File Path").show();
+            throw new RuntimeException(e);
+        }
+    }
 }
 
