@@ -4,4 +4,4 @@ use chatapp;
 create table user(
     username varchar(15) primary key,
     password varchar(15) not null,
-    img varchar(30) not null);
+    img varchar(200) not null);

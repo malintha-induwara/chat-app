@@ -23,6 +23,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
@@ -165,7 +169,7 @@ public class CreateAccountFormController {
             String url = imageSave();
 
             //Save User
-           boolean isSaved = userModel.saveUser(txtUserName.getText(),txtPassword.getText(),url);
+            boolean isSaved = userModel.saveUser(txtUserName.getText(),txtPassword.getText(),url);
 
            if (!isSaved){
                new Alert(Alert.AlertType.ERROR,"Something went wrong user didnt saved").show();
@@ -194,9 +198,21 @@ public class CreateAccountFormController {
             URI uri = new URI(userImage.getUrl());
 
             File file = new File(uri);
+            String sourceLocation = file.getAbsolutePath();
 
-            return file.getAbsolutePath();
-        } catch (URISyntaxException e) {
+            //Copy File to resources user folder
+
+            if (!(sourceLocation.equals("/home/syrex/Desktop/chat-app/src/main/resources/assets/images/users/user.png"))) {
+                Path sourcePath = file.toPath();
+                Path destinationPath = Paths.get("/home/syrex/Desktop/chat-app/src/main/resources/assets/images/users/" + file.getName());
+                Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+
+                return "assets/images/users/"+file.getName();
+            }
+
+            return "assets/images/users/user.png";
+
+        } catch (URISyntaxException | IOException e) {
             new Alert(Alert.AlertType.ERROR,"Check The File Path").show();
             throw new RuntimeException(e);
         }
