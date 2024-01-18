@@ -6,8 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -17,7 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import lk.ijse.chatApp.util.DB;
+import lk.ijse.chatApp.util.UserCountUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,7 +63,7 @@ public class CreateAccountFormController {
         Image userImage = imagePattern.getImage();
 
         //Save on the array list
-        DB.users.put(txtUserName.getText(), userImage);
+        UserCountUtil.users.put(txtUserName.getText(), userImage);
 
         loadChatForm();
         closeWindow();
@@ -74,20 +72,7 @@ public class CreateAccountFormController {
 
     private void loadChatForm() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/chatForm.fxml"));
-        Parent rootNode = loader.load();
 
-
-        //Getting reference to the ChatController
-        ChatFormController chatFormController = loader.getController();
-        chatFormController.setName(txtUserName.getText());
-
-        Scene scene = new Scene(rootNode);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.setTitle(txtUserName.getText() + "'s Chat");
-        stage.show();
     }
 
     private void closeWindow() {
@@ -107,7 +92,7 @@ public class CreateAccountFormController {
         }
 
         //Check User Already exists
-        boolean isUserExists = DB.users.containsKey(name);
+        boolean isUserExists = UserCountUtil.users.containsKey(name);
         if (isUserExists) {
             txtUserName.requestFocus();
             txtUserName.getStyleClass().add("mfx-text-field-error");

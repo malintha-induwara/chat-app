@@ -23,7 +23,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import lk.ijse.chatApp.util.DB;
+import lk.ijse.chatApp.util.UserCountUtil;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -80,17 +80,17 @@ public class ChatFormController {
         vBox.heightProperty().addListener((observableValue, oldValue, newValue) -> scrollPane.setVvalue((Double) newValue));
 
         //Set Listener to Observable Map to update the userount
-        DB.users.addListener((MapChangeListener<String, Image>) change -> setUserCount());
+        UserCountUtil.users.addListener((MapChangeListener<String, Image>) change -> setUserCount());
 
 
         //idk wtf is this but apparently its a another lambda expression
         //Original code was
         //Runnable runnable = ()->{ socketInitialize())};
 
-        Runnable runnable = this::socketInitialize;
+       // Runnable runnable = this::socketInitialize;
 
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        service.submit(runnable);
+      //  ExecutorService service = Executors.newSingleThreadExecutor();
+       // service.submit(runnable);
 
     }
 
@@ -118,7 +118,7 @@ public class ChatFormController {
 
     private void setUserCount() {
         Platform.runLater(() -> {
-            String count = String.valueOf(DB.users.size());
+            String count = String.valueOf(UserCountUtil.users.size());
             txtMemberCount.setText(count);
         });
     }
@@ -135,7 +135,7 @@ public class ChatFormController {
 
 
             //Set Image
-            Image profileImage = DB.users.get(name);
+            Image profileImage = UserCountUtil.users.get(name);
             circleImg.setFill(new ImagePattern(profileImage));
 
         });
@@ -249,7 +249,7 @@ public class ChatFormController {
     void btnLogOutOnAction(ActionEvent event) throws IOException {
 
         //Remove User
-        DB.users.remove(this.name);
+        UserCountUtil.users.remove(this.name);
 
 
         loadCreateAccountForm();
@@ -257,7 +257,7 @@ public class ChatFormController {
     }
 
     private void loadCreateAccountForm() throws IOException {
-        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/createAccountForm.fxml"));
+        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/loginForm.fxml"));
         Scene scene = new Scene(rootNode);
         Stage stage = new Stage();
         stage.setScene(scene);

@@ -5,10 +5,15 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import lk.ijse.chatApp.model.UserModel;
+import lk.ijse.chatApp.util.UserCountUtil;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,8 +39,6 @@ public class LoginFormController {
     void btnLoginOnAction(ActionEvent event) throws IOException {
 
         try {
-
-
             boolean isValidated = validateFields();
             if (!isValidated) {
                 return;
@@ -44,16 +47,48 @@ public class LoginFormController {
             boolean isUserExists = validateUser();
 
             if (!isUserExists) {
+                new Alert(Alert.AlertType.ERROR,"User Doesnt Exists").show();
                 return;
             }
-
-
-            System.out.println("GG");
-
+            setUserCount(txtUserName.getText());
+            loadChatForm();
+            closeWindow();
 
         } catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage());
         }
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) txtUserName.getScene().getWindow();
+        stage.close();
+    }
+
+
+    private void setUserCount(String userName) throws SQLException {
+        String path = userModel.getLocation(userName);
+        Image image = new Image(path);
+        //Save on the array list
+        UserCountUtil.users.put(userName, image);
+    }
+
+
+    private void loadChatForm() throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/chatForm.fxml"));
+        Parent rootNode = loader.load();
+
+
+        //Getting reference to the ChatController
+        ChatFormController chatFormController = loader.getController();
+        chatFormController.setName(txtUserName.getText());
+
+        Scene scene = new Scene(rootNode);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.setTitle(txtUserName.getText() + "'s Chat");
+        stage.show();
     }
 
     private boolean validateUser() throws SQLException {

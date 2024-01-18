@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.scene.image.Image;
 
-import java.util.HashMap;
-import javafx.collections.MapChangeListener;
-
-public class DB {
+public class UserCountUtil {
     public static ObservableMap<String, Image> users = FXCollections.observableHashMap();
 
 }
