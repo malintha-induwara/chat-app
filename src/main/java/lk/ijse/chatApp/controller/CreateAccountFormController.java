@@ -17,7 +17,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.chatApp.model.UserModel;
-import lk.ijse.chatApp.util.UserCountUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,23 +62,7 @@ public class CreateAccountFormController {
         circleImg.setFill(new ImagePattern(image));
     }
 
-    @FXML
-    void btnChatOnAction(ActionEvent event) throws IOException {
 
-
-        //Save on the array list
-//        UserCountUtil.users.put(txtUserName.getText(), userImage);
-//
-//        loadChatForm();
-//        closeWindow();
-
-    }
-
-    private void loadChatForm() throws IOException {
-
-
-
-    }
 
     private void closeWindow() {
         Stage stage = (Stage) txtUserName.getScene().getWindow();

@@ -237,7 +237,7 @@ public class ChatFormController {
 
     @FXML
     void btnAddUserOnAction(ActionEvent event) throws IOException {
-        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/createAccountForm.fxml"));
+        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/loginForm.fxml"));
         Scene scene = new Scene(rootNode);
         Stage stage = new Stage();
         stage.setScene(scene);
