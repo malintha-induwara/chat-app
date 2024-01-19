@@ -67,9 +67,15 @@ public class LoginFormController {
 
     private void setUserCount(String userName) throws SQLException {
         String path = userModel.getLocation(userName);
-        Image image = new Image(path);
-        //Save on the array list
-        UserCountUtil.users.put(userName, image);
+        try {
+            Image image = new Image(path);
+            //Save on the array list
+            UserCountUtil.users.put(userName, image);
+        }catch (IllegalArgumentException e){
+            Image image = new Image("assets/images/users/user.png");
+            //Save on the array list
+            UserCountUtil.users.put(userName, image);
+        }
     }
 
 

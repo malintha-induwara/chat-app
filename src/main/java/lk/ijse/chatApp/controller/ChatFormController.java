@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -29,6 +30,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -87,34 +89,33 @@ public class ChatFormController {
         //Original code was
         //Runnable runnable = ()->{ socketInitialize())};
 
-       // Runnable runnable = this::socketInitialize;
+        Runnable runnable = this::socketInitialize;
 
-      //  ExecutorService service = Executors.newSingleThreadExecutor();
-       // service.submit(runnable);
-
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     private void socketInitialize() {
 
         try {
-            socket=new Socket("localhost",3030);
+            socket = new Socket("localhost", 3030);
 
-            do {
+            do{
                 inputStream = new DataInputStream(socket.getInputStream());
                 outputStream = new DataOutputStream(socket.getOutputStream());
-                message=inputStream.readUTF();
+                message = inputStream.readUTF();
 
-                Platform.runLater(()->{
-                    receiveMassage("Server",message);
+                Platform.runLater(() -> {
+                    receiveMassage("Server", message);
                 });
 
-                System.out.println(message);
-            }while (!message.equals("end-chat"));
-
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            }while (!message.equals("finish"));
+        }catch (IOException e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
+
     }
+
 
     private void setUserCount() {
         Platform.runLater(() -> {
@@ -164,26 +165,33 @@ public class ChatFormController {
     }
 
     private void sendMassage() {
-        String massage = txtMassage.getText();
+        try {
+            String massage = txtMassage.getText();
 
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.BASELINE_RIGHT);
+            outputStream.writeUTF(massage);
+            outputStream.flush();
 
-        hBox.setPadding(new Insets(5, 5, 5, 10));
-        Text text = new Text(massage);
-        TextFlow textFlow = new TextFlow(text);
-        textFlow.setStyle(
-                "-fx-color: rgb(239, 242, 255);" +
-                        "-fx-background-color: rgb(15, 125, 242);" +
-                        "-fx-background-radius: 20px;");
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.BASELINE_RIGHT);
 
-        textFlow.setPadding(new Insets(5, 10, 5, 10));
-        text.setFill(Color.color(0.934, 0.925, 0.996));
+            hBox.setPadding(new Insets(5, 5, 5, 10));
+            Text text = new Text(massage);
+            TextFlow textFlow = new TextFlow(text);
+            textFlow.setStyle(
+                    "-fx-color: rgb(239, 242, 255);" +
+                            "-fx-background-color: rgb(15, 125, 242);" +
+                            "-fx-background-radius: 20px;");
 
-        hBox.getChildren().add(textFlow);
-        vBox.getChildren().add(hBox);
+            textFlow.setPadding(new Insets(5, 10, 5, 10));
+            text.setFill(Color.color(0.934, 0.925, 0.996));
 
-        txtMassage.clear();
+            hBox.getChildren().add(textFlow);
+            vBox.getChildren().add(hBox);
+
+            txtMassage.clear();
+        }catch (IOException e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
     }
 
     private void notification(String massage) {
