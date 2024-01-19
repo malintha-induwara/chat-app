@@ -30,9 +30,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ChatFormController {
 
@@ -99,21 +96,38 @@ public class ChatFormController {
 
         try {
             socket = new Socket("localhost", 3030);
+            inputStream = new DataInputStream(socket.getInputStream());
+            outputStream = new DataOutputStream(socket.getOutputStream());
+
+            //Client Connected msg
+            outputStream.writeUTF("noti-"+this.name+" Connected");
+            outputStream.flush();
 
             do{
-                inputStream = new DataInputStream(socket.getInputStream());
-                outputStream = new DataOutputStream(socket.getOutputStream());
                 message = inputStream.readUTF();
-
                 Platform.runLater(() -> {
-                    receiveMassage("Server", message);
+                    messageSelector(message);
                 });
 
-            }while (!message.equals("finish"));
+            }while (!message.equals("end"));
         }catch (IOException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
 
+    }
+
+    private void messageSelector(String message) {
+
+        String [] msg = message.split("-");
+        String pre = msg[0];
+        String post = msg[1];
+
+        if (pre.equals("noti")) {
+            notification(post);
+            return;
+        }
+
+        receiveMassage(pre, post);
     }
 
 
@@ -168,7 +182,7 @@ public class ChatFormController {
         try {
             String massage = txtMassage.getText();
 
-            outputStream.writeUTF(massage);
+            outputStream.writeUTF(this.name+"-"+massage);
             outputStream.flush();
 
             HBox hBox = new HBox();
@@ -259,6 +273,8 @@ public class ChatFormController {
         //Remove User
         UserCountUtil.users.remove(this.name);
 
+        //Client DC message
+        outputStream.writeUTF("noti-"+this.name+" Disconnected");
 
         loadCreateAccountForm();
         closeWindow();

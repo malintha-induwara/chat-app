@@ -50,6 +50,12 @@ public class LoginFormController {
                 new Alert(Alert.AlertType.ERROR,"User Doesnt Exists").show();
                 return;
             }
+
+            if (UserCountUtil.users.containsKey(txtUserName.getText())){
+                new Alert(Alert.AlertType.ERROR,"User Already Logged in ").show();
+                return;
+            }
+
             setUserCount(txtUserName.getText());
             loadChatForm();
             closeWindow();
