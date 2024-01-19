@@ -111,7 +111,7 @@ public class ChatFormController {
 
             }while (!message.equals("end"));
         }catch (IOException e){
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            e.printStackTrace();
         }
 
     }
@@ -275,6 +275,7 @@ public class ChatFormController {
 
         //Client DC message
         outputStream.writeUTF("noti-"+this.name+" Disconnected");
+        outputStream.flush();
 
         loadCreateAccountForm();
         closeWindow();

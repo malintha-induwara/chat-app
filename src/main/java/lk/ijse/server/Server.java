@@ -16,11 +16,7 @@ public class Server {
     private static int index = 0;
     private static List<ConnectedClient> clients = new ArrayList<>();
 
-    private static String lastUser="";
-
-
     public void startServer(){
-
         try{
             server = new ServerSocket(PORT);
             do { iniConnections();
