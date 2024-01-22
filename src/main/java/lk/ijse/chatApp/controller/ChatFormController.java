@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -23,11 +24,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.chatApp.util.UserCountUtil;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -293,6 +297,30 @@ public class ChatFormController {
     private void closeWindow() {
         Stage stage = (Stage) txtMassage.getScene().getWindow();
         stage.close();
+    }
+
+
+    @FXML
+    void imageOnAction(MouseEvent event) {
+
+        FileChooser fileChooser = new FileChooser();
+        configureFileChooser(fileChooser);
+
+        Window window = ((Node) event.getTarget()).getScene().getWindow();
+        File file = fileChooser.showOpenDialog(window);
+
+        if (file != null) {
+            Image selectedImage = new Image(file.toURI().toString());
+        }
+        
+
+    }
+
+    private void configureFileChooser(FileChooser fileChooser) {
+        fileChooser.setTitle("Select Image File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg")
+        );
     }
 
 
