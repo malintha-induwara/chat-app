@@ -104,7 +104,7 @@ public class ChatFormController {
             outputStream = new DataOutputStream(socket.getOutputStream());
 
             //Client Connected msg
-            outputStream.writeUTF("noti-"+this.name+" Connected");
+            outputStream.writeUTF("noti-"+this.name+"- Connected");
             outputStream.flush();
 
             do{
@@ -123,15 +123,25 @@ public class ChatFormController {
     private void messageSelector(String message) {
 
         String [] msg = message.split("-");
-        String pre = msg[0];
-        String post = msg[1];
+        String type = msg[0];
+        String sender = msg[1];
+        String contain = msg [2];
 
-        if (pre.equals("noti")) {
-            notification(post);
+        if (type.equals("noti")) {
+            notification(sender+contain);
             return;
         }
 
-        receiveMassage(pre, post);
+        if (type.equals("msg")){
+            receiveMassage(sender, contain);
+            return;
+        }
+
+        if (type.equals("img")){
+
+        }
+
+
     }
 
 
@@ -186,7 +196,7 @@ public class ChatFormController {
         try {
             String massage = txtMassage.getText();
 
-            outputStream.writeUTF(this.name+"-"+massage);
+            outputStream.writeUTF("msg-"+this.name+"-"+massage);
             outputStream.flush();
 
             HBox hBox = new HBox();
@@ -278,7 +288,7 @@ public class ChatFormController {
         UserCountUtil.users.remove(this.name);
 
         //Client DC message
-        outputStream.writeUTF("noti-"+this.name+" Disconnected");
+        outputStream.writeUTF("noti-"+this.name+"- Disconnected");
         outputStream.flush();
 
         loadCreateAccountForm();
@@ -309,10 +319,7 @@ public class ChatFormController {
         Window window = ((Node) event.getTarget()).getScene().getWindow();
         File file = fileChooser.showOpenDialog(window);
 
-        if (file != null) {
-            Image selectedImage = new Image(file.toURI().toString());
-        }
-        
+
 
     }
 
