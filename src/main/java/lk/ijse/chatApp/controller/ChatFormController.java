@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,11 +30,14 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.chatApp.util.UserCountUtil;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.List;
 
 public class ChatFormController {
 
@@ -138,9 +142,27 @@ public class ChatFormController {
         }
 
         if (type.equals("img")){
-
+            System.out.println("badu hari");
+            System.out.println(contain);
+            receiveImage(contain);
         }
 
+
+    }
+
+    private void receiveImage(String path) {
+        Image image = new Image(path);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(200);
+        imageView.setFitWidth(200);
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.BASELINE_LEFT);
+        hBox.setPadding(new Insets(5,5,5,10));
+        hBox.getChildren().add(imageView);
+
+        Platform.runLater(()->{
+            vBox.getChildren().add(hBox);
+        });
 
     }
 
@@ -319,7 +341,34 @@ public class ChatFormController {
         Window window = ((Node) event.getTarget()).getScene().getWindow();
         File file = fileChooser.showOpenDialog(window);
 
+        sendImage(file.toURI().toString());
 
+
+    }
+
+    private void sendImage(String absolutePath) {
+
+
+
+        System.out.println(absolutePath);
+        Image image = new Image(absolutePath);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(200);
+        imageView.setFitWidth(200);
+
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(5,5,5,10));
+        hBox.getChildren().add(imageView);
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+
+        vBox.getChildren().add(hBox);
+
+        try {
+            outputStream.writeUTF("img-"+this.name+"-"+absolutePath);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
