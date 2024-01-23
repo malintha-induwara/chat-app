@@ -108,7 +108,7 @@ public class ChatFormController {
             outputStream = new DataOutputStream(socket.getOutputStream());
 
             //Client Connected msg
-            outputStream.writeUTF("noti-"+this.name+"- Connected");
+            outputStream.writeUTF("noti&"+this.name+"& Connected");
             outputStream.flush();
 
             do{
@@ -126,7 +126,7 @@ public class ChatFormController {
 
     private void messageSelector(String message) {
 
-        String [] msg = message.split("-");
+        String [] msg = message.split("&");
         String type = msg[0];
         String sender = msg[1];
         String contain = msg [2];
@@ -218,7 +218,7 @@ public class ChatFormController {
         try {
             String massage = txtMassage.getText();
 
-            outputStream.writeUTF("msg-"+this.name+"-"+massage);
+            outputStream.writeUTF("msg&"+this.name+"&"+massage);
             outputStream.flush();
 
             HBox hBox = new HBox();
@@ -310,7 +310,7 @@ public class ChatFormController {
         UserCountUtil.users.remove(this.name);
 
         //Client DC message
-        outputStream.writeUTF("noti-"+this.name+"- Disconnected");
+        outputStream.writeUTF("noti&"+this.name+"& Disconnected");
         outputStream.flush();
 
         loadCreateAccountForm();
@@ -341,8 +341,28 @@ public class ChatFormController {
         Window window = ((Node) event.getTarget()).getScene().getWindow();
         File file = fileChooser.showOpenDialog(window);
 
-        sendImage(file.toURI().toString());
 
+        if (file != null) {
+            sendImage(file.toURI().toString());
+
+
+//            try {
+//                byte[] imageBytes = Files.readAllBytes(file.toPath());
+//                String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+//
+//                int splitLength = 60000; // size of each chunk
+//                int length = encodedImage.length();
+//                for (int i = 0; i < length; i += splitLength) {
+//                    int end = Math.min(length, i + splitLength);
+//                    String part = encodedImage.substring(i, end);
+//                    System.out.println(part);
+//                }
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
+        }
 
     }
 
@@ -364,7 +384,7 @@ public class ChatFormController {
         vBox.getChildren().add(hBox);
 
         try {
-            outputStream.writeUTF("img-"+this.name+"-"+absolutePath);
+            outputStream.writeUTF("img&"+this.name+"&"+absolutePath);
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
