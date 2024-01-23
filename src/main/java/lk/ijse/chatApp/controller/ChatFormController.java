@@ -142,8 +142,6 @@ public class ChatFormController {
         }
 
         if (type.equals("img")){
-            System.out.println("badu hari");
-            System.out.println(contain);
             receiveImage(contain);
         }
 
@@ -344,24 +342,6 @@ public class ChatFormController {
 
         if (file != null) {
             sendImage(file.toURI().toString());
-
-
-//            try {
-//                byte[] imageBytes = Files.readAllBytes(file.toPath());
-//                String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
-//
-//                int splitLength = 60000; // size of each chunk
-//                int length = encodedImage.length();
-//                for (int i = 0; i < length; i += splitLength) {
-//                    int end = Math.min(length, i + splitLength);
-//                    String part = encodedImage.substring(i, end);
-//                    System.out.println(part);
-//                }
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-
         }
 
     }
