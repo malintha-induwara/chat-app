@@ -15,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -133,12 +132,21 @@ public class ChatFormController {
     }
 
     private void sendEmoji(String text) {
-        List<Node> nodes = TextUtils.convertToTextAndImageNodes(createUnicodeText(text));
-        HBox hBox = new HBox();
-        hBox.setPadding(new Insets(5, 5, 5, 10));
-        hBox.setAlignment(Pos.BASELINE_RIGHT);
-        hBox.getChildren().add(nodes.get(0));
-        vBox.getChildren().add(hBox);
+
+        try {
+            outputStream.writeUTF("emoji&" + this.name + "&" + text);
+            outputStream.flush();
+
+            List<Node> nodes = TextUtils.convertToTextAndImageNodes(createUnicodeText(text));
+            HBox hBox = new HBox();
+            hBox.setPadding(new Insets(5, 5, 5, 10));
+            hBox.setAlignment(Pos.BASELINE_RIGHT);
+            hBox.getChildren().add(nodes.get(0));
+            vBox.getChildren().add(hBox);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     private void socketInitialize() {
@@ -181,11 +189,24 @@ public class ChatFormController {
                 receiveMassage(sender, contain);
                 break;
             case "img":
-                receivedImageName(sender);
+                receivedName(sender);
                 receiveImage(contain);
+                break;
+            case  "emoji":
+                receivedName(sender);
+                receiveEmoji(contain);
                 break;
         }
 
+    }
+
+    private void receiveEmoji(String contain) {
+        List<Node> nodes = TextUtils.convertToTextAndImageNodes(createUnicodeText(contain));
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        hBox.setAlignment(Pos.BASELINE_LEFT);
+        hBox.getChildren().add(nodes.get(0));
+        vBox.getChildren().add(hBox);
     }
 
     private void receiveImage(String path) {
@@ -203,7 +224,7 @@ public class ChatFormController {
         });
     }
 
-    private void receivedImageName(String sender) {
+    private void receivedName(String sender) {
 
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.BASELINE_LEFT);
