@@ -1,5 +1,9 @@
 package lk.ijse.chatApp.controller;
 
+import com.gluonhq.emoji.Emoji;
+import com.gluonhq.emoji.EmojiData;
+import com.gluonhq.emoji.util.TextUtils;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
@@ -11,11 +15,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -30,15 +36,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.chatApp.util.UserCountUtil;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.*;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 public class ChatFormController {
 
@@ -66,6 +67,10 @@ public class ChatFormController {
     @FXML
     private VBox vBox;
 
+    @FXML
+    private GridPane emojiPickerGrid;
+
+
     private String name;
 
 
@@ -81,7 +86,7 @@ public class ChatFormController {
 
         setScrollPaneTransparent();
         setChatNameAndProfilePic();
-
+        setEmojis();
         setUserCount();
 
         //This line is to auto scroll down when new Message is received
@@ -99,6 +104,41 @@ public class ChatFormController {
 
         Thread thread = new Thread(runnable);
         thread.start();
+    }
+
+    private void setEmojis() {
+        //Clear the grid
+        emojiPickerGrid.getChildren().clear();
+
+        String text = "grinning grin joy smile smiling_face_with_tear sunglasses middle_finger pinched_fingers wave";
+        String[] words = text.split(" ");
+
+
+        List<Node> nodes = TextUtils.convertToTextAndImageNodes(createUnicodeText(text));
+
+        for (int i = 0; i < nodes.size(); i++) {
+            Node node = nodes.get(i);
+            MFXButton btn = new MFXButton(words[i],node);
+            btn.setPrefHeight(27);
+            btn.setPrefWidth(27);
+            btn.setOnMouseClicked(mouseEvent -> {
+                sendEmoji(btn.getText());
+            });
+            btn.setEllipsisString("");
+            emojiPickerGrid.add(btn, i % 3, i / 3);
+            GridPane.setHalignment(btn, javafx.geometry.HPos.CENTER);
+            GridPane.setValignment(btn,javafx.geometry.VPos.CENTER);
+
+        }
+    }
+
+    private void sendEmoji(String text) {
+        List<Node> nodes = TextUtils.convertToTextAndImageNodes(createUnicodeText(text));
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        hBox.setAlignment(Pos.BASELINE_RIGHT);
+        hBox.getChildren().add(nodes.get(0));
+        vBox.getChildren().add(hBox);
     }
 
     private void socketInitialize() {
@@ -399,10 +439,23 @@ public class ChatFormController {
 
     @FXML
     void emojiOnAction(MouseEvent event) {
-
-
-
+        emojiPickerGrid.setVisible(!emojiPickerGrid.isVisible());
     }
+
+
+    private String createUnicodeText(String nv) {
+        StringBuilder unicodeText = new StringBuilder();
+        String[] words = nv.split(" ");
+        for (String word : words) {
+            Optional<Emoji> optionalEmoji = EmojiData.emojiFromShortName(word);
+
+            if (optionalEmoji.isPresent()){
+                unicodeText.append(optionalEmoji.get().character());
+            }
+        }
+        return unicodeText.toString();
+    }
+
 
 
 }

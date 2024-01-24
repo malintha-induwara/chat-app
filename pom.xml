@@ -35,6 +35,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
+        <dependency>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>emoji</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
 
 </project>
