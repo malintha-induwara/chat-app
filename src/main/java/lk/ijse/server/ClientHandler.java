@@ -5,13 +5,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ConnectedClient {
+public class ClientHandler {
     private Socket clientSocket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
     private int id;
 
-    public ConnectedClient(Socket clientSocket, int id) {
+    public ClientHandler(Socket clientSocket, int id) {
         this.clientSocket = clientSocket;
         this.id = id;
         try {

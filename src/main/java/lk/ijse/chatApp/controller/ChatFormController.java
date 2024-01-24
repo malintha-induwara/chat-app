@@ -32,6 +32,7 @@ import lk.ijse.chatApp.util.UserCountUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -131,20 +132,19 @@ public class ChatFormController {
         String sender = msg[1];
         String contain = msg [2];
 
-        if (type.equals("noti")) {
-            notification(sender+contain);
-            return;
-        }
 
-        if (type.equals("msg")){
-            receiveMassage(sender, contain);
-            return;
+        switch (type){
+            case "noti":
+                notification(sender+contain);
+                break;
+            case "msg":
+                receiveMassage(sender, contain);
+                break;
+            case "img":
+                receivedImageName(sender);
+                receiveImage(contain);
+                break;
         }
-
-        if (type.equals("img")){
-            receiveImage(contain);
-        }
-
 
     }
 
@@ -161,8 +161,29 @@ public class ChatFormController {
         Platform.runLater(()->{
             vBox.getChildren().add(hBox);
         });
-
     }
+
+    private void receivedImageName(String sender) {
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.BASELINE_LEFT);
+
+        Text senderText = new Text(sender);
+        senderText.setFont(Font.font("Arial", FontWeight.BLACK, 12));
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        TextFlow textFlow = new TextFlow(senderText);
+        textFlow.setStyle(
+                "-fx-color: rgb(239, 242, 255);" +
+                        "-fx-background-color: rgb(255,255,255);" +
+                        "-fx-background-radius: 20px;");
+
+        textFlow.setPadding(new Insets(5, 20, 5, 10));
+        textFlow.setLineSpacing(5);
+        hBox.getChildren().add(textFlow);
+        vBox.getChildren().add(hBox);
+    }
+
+
 
 
     private void setUserCount() {
@@ -347,10 +368,6 @@ public class ChatFormController {
     }
 
     private void sendImage(String absolutePath) {
-
-
-
-        System.out.println(absolutePath);
         Image image = new Image(absolutePath);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(200);
@@ -377,6 +394,14 @@ public class ChatFormController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg")
         );
+    }
+
+
+    @FXML
+    void emojiOnAction(MouseEvent event) {
+
+
+
     }
 
 

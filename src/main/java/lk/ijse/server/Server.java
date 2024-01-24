@@ -1,9 +1,5 @@
 package lk.ijse.server;
 
-import javafx.collections.MapChangeListener;
-import javafx.scene.image.Image;
-import lk.ijse.chatApp.util.UserCountUtil;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,7 +10,7 @@ public class Server {
     private ServerSocket server;
     public static final int PORT = 3030;
     private static int index = 0;
-    private static List<ConnectedClient> clients = new ArrayList<>();
+    private static List<ClientHandler> clients = new ArrayList<>();
 
     public void startServer(){
         try{
@@ -32,7 +28,7 @@ public class Server {
         if(clientSocket.isConnected()){
             new Thread(()->{
                 index++;
-                ConnectedClient client = new ConnectedClient(clientSocket,index);
+                ClientHandler client = new ClientHandler(clientSocket,index);
                 clients.add(client);
                 client.readMessages();
                 client.close();
@@ -41,7 +37,7 @@ public class Server {
     }
 
     public static void broadcastMessage(String message, int senderId) {
-        for (ConnectedClient client : clients) {
+        for (ClientHandler client : clients) {
             if (client.getId() != senderId) {
                 client.sendMessage(message);
             }
