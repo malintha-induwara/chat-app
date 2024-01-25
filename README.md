@@ -1,1 +1,5 @@
-Chat Application Using JAVA FX
+Chat Application Using JAVA-FX
+
+Technologies Used
+*Sockets
+
