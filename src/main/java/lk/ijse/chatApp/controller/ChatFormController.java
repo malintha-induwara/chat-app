@@ -469,13 +469,18 @@ public class ChatFormController {
         String[] words = nv.split(" ");
         for (String word : words) {
             Optional<Emoji> optionalEmoji = EmojiData.emojiFromShortName(word);
-
             if (optionalEmoji.isPresent()){
                 unicodeText.append(optionalEmoji.get().character());
             }
         }
         return unicodeText.toString();
     }
+
+    @FXML
+    void btnPeopleOnAction(ActionEvent event) {
+
+    }
+
 
 
 

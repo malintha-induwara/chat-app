@@ -52,7 +52,7 @@
             <Insets left="40.0" />
          </padding>
       </MFXButton>
-      <MFXButton alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutY="232.0" prefHeight="42.0" prefWidth="276.0" styleClass="mfx-button-menu" text="People">
+      <MFXButton alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutY="232.0" onAction="#btnPeopleOnAction" prefHeight="42.0" prefWidth="276.0" styleClass="mfx-button-menu" text="People">
          <font>
             <Font size="20.0" />
          </font>
