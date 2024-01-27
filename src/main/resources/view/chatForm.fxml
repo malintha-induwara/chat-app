@@ -137,5 +137,19 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
+      <AnchorPane fx:id="peoplePane" layoutX="275.0" prefHeight="652.0" prefWidth="477.0" styleClass="pane" stylesheets="@../assets/css/Style.css">
+         <children>
+            <Pane prefHeight="60.0" prefWidth="477.0" styleClass="pane">
+               <children>
+                  <VBox fx:id="peopleVbox" layoutY="68.0" prefHeight="580.0" prefWidth="477.0" />
+                  <Text layoutX="201.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contacts">
+                     <font>
+                        <Font name="Lexend Bold" size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
