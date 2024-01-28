@@ -79,7 +79,6 @@ public class LoginFormController {
             UserCountUtil.users.put(userName, image);
         }catch (IllegalArgumentException e){
             Image image = new Image("assets/images/users/user.png");
-            //Save on the array list
             UserCountUtil.users.put(userName, image);
         }
     }

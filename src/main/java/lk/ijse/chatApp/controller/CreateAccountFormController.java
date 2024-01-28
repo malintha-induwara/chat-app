@@ -173,7 +173,7 @@ public class CreateAccountFormController {
             File file = new File(uri);
             String sourceLocation = file.getAbsolutePath();
 
-            // Get the user's home directory in a platform-independent way
+            // Get the users home directory in a platform independent way
             String userHomeDir = System.getProperty("user.home");
             Path directoryPath = Paths.get(userHomeDir, "Desktop", "users");
 
