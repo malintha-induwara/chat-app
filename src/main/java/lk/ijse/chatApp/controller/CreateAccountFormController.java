@@ -50,7 +50,7 @@ public class CreateAccountFormController {
 
 
     private void loadDefaultImage() {
-        Image image = new Image("assets/images/users/user.png");
+        Image image = new Image("assets/images/addUserImage.png");
         circleImg.setFill(new ImagePattern(image));
     }
 

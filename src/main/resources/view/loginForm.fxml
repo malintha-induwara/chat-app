@@ -27,7 +27,7 @@
             <Image url="@../assets/images/icon.png" />
          </image>
       </ImageView>
-      <Label layoutX="188.0" layoutY="35.0" text="V-Chat" textFill="#3498db">
+      <Label layoutX="188.0" layoutY="35.0" text="PT-Chat" textFill="#3498db">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
