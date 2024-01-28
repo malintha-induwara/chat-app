@@ -37,7 +37,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.chatApp.util.UserCountUtil;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 import java.util.Map;
@@ -46,51 +49,29 @@ import java.util.Optional;
 public class ChatFormController {
 
 
+    String message;
     @FXML
     private ScrollPane scrollPane;
-
-
     @FXML
     private TextField txtMassage;
-
-
     @FXML
     private Text txtMemberCount;
-
-
     @FXML
     private Circle circleImg;
-
-
     @FXML
     private Text txtName;
-
-
     @FXML
     private VBox peopleVbox;
-
-
     @FXML
     private AnchorPane peoplePane;
-
-
     @FXML
     private VBox vBox;
-
     @FXML
     private GridPane emojiPickerGrid;
-
-
     private String name;
-
-
     private Socket socket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
-
-    String message;
-
-
 
     public void initialize() {
 
@@ -99,8 +80,6 @@ public class ChatFormController {
         setEmojis();
         setUserCount();
         updateContacts();
-
-
 
 
         //This line is to auto scroll down when new Message is received
@@ -129,34 +108,18 @@ public class ChatFormController {
             peopleVbox.getChildren().clear();
             peopleVbox.setSpacing(10);
 
-            // Iterate over the users map
             for (Map.Entry<String, Image> entry : UserCountUtil.users.entrySet()) {
                 String userName = entry.getKey();
                 Image userImage = entry.getValue();
-
-                // Create a new HBox
                 HBox hbox = new HBox();
-
-                // Set the alignment of the HBox to center
                 hbox.setAlignment(Pos.CENTER);
-
-                // Set the spacing between the children of the HBox
                 hbox.setSpacing(10);
-
-
-                Circle circle = new Circle(25);// 25 is the radius of the circle
-
-                circle.setStroke(Color.BLACK); // Set the color of the border
+                Circle circle = new Circle(25);
+                circle.setStroke(Color.BLACK);
                 circle.setStrokeWidth(2);
                 circle.setFill(new ImagePattern(userImage));
-
-                // Create a Label for the user's name
                 Label label = new Label(userName);
-
-                // Add the ImageView and Label to the HBox
                 hbox.getChildren().addAll(circle, label);
-
-                // Add the HBox to the VBox
                 peopleVbox.getChildren().add(hbox);
             }
         });
@@ -174,7 +137,7 @@ public class ChatFormController {
 
         for (int i = 0; i < nodes.size(); i++) {
             Node node = nodes.get(i);
-            MFXButton btn = new MFXButton(words[i],node);
+            MFXButton btn = new MFXButton(words[i], node);
             btn.setPrefHeight(27);
             btn.setPrefWidth(27);
             btn.setOnMouseClicked(mouseEvent -> {
@@ -183,7 +146,7 @@ public class ChatFormController {
             btn.setEllipsisString("");
             emojiPickerGrid.add(btn, i % 3, i / 3);
             GridPane.setHalignment(btn, javafx.geometry.HPos.CENTER);
-            GridPane.setValignment(btn,javafx.geometry.VPos.CENTER);
+            GridPane.setValignment(btn, javafx.geometry.VPos.CENTER);
 
         }
     }
@@ -200,8 +163,7 @@ public class ChatFormController {
             hBox.setAlignment(Pos.BASELINE_RIGHT);
             hBox.getChildren().add(nodes.get(0));
             vBox.getChildren().add(hBox);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -214,17 +176,17 @@ public class ChatFormController {
             outputStream = new DataOutputStream(socket.getOutputStream());
 
             //Client Connected msg
-            outputStream.writeUTF("noti&"+this.name+"& Connected");
+            outputStream.writeUTF("noti&" + this.name + "& Connected");
             outputStream.flush();
 
-            do{
+            do {
                 message = inputStream.readUTF();
                 Platform.runLater(() -> {
                     messageSelector(message);
                 });
 
-            }while (!message.equals("end"));
-        }catch (IOException e){
+            } while (!message.equals("end"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -232,15 +194,15 @@ public class ChatFormController {
 
     private void messageSelector(String message) {
 
-        String [] msg = message.split("&");
+        String[] msg = message.split("&");
         String type = msg[0];
         String sender = msg[1];
-        String contain = msg [2];
+        String contain = msg[2];
 
 
-        switch (type){
+        switch (type) {
             case "noti":
-                notification(sender+contain);
+                notification(sender + contain);
                 break;
             case "msg":
                 receiveMassage(sender, contain);
@@ -249,7 +211,7 @@ public class ChatFormController {
                 receivedName(sender);
                 receiveImage(contain);
                 break;
-            case  "emoji":
+            case "emoji":
                 receivedName(sender);
                 receiveEmoji(contain);
                 break;
@@ -273,10 +235,10 @@ public class ChatFormController {
         imageView.setFitWidth(200);
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.BASELINE_LEFT);
-        hBox.setPadding(new Insets(5,5,5,10));
+        hBox.setPadding(new Insets(5, 5, 5, 10));
         hBox.getChildren().add(imageView);
 
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             vBox.getChildren().add(hBox);
         });
     }
@@ -300,8 +262,6 @@ public class ChatFormController {
         hBox.getChildren().add(textFlow);
         vBox.getChildren().add(hBox);
     }
-
-
 
 
     private void setUserCount() {
@@ -356,7 +316,7 @@ public class ChatFormController {
             String massage = txtMassage.getText();
 
 
-            outputStream.writeUTF("msg&"+this.name+"&"+massage);
+            outputStream.writeUTF("msg&" + this.name + "&" + massage);
             outputStream.flush();
 
             HBox hBox = new HBox();
@@ -377,8 +337,8 @@ public class ChatFormController {
             vBox.getChildren().add(hBox);
 
             txtMassage.clear();
-        }catch (IOException e){
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -448,7 +408,7 @@ public class ChatFormController {
         UserCountUtil.users.remove(this.name);
 
         //Client DC message
-        outputStream.writeUTF("noti&"+this.name+"& Disconnected");
+        outputStream.writeUTF("noti&" + this.name + "& Disconnected");
         outputStream.flush();
 
         loadCreateAccountForm();
@@ -493,14 +453,14 @@ public class ChatFormController {
         imageView.setFitWidth(200);
 
         HBox hBox = new HBox();
-        hBox.setPadding(new Insets(5,5,5,10));
+        hBox.setPadding(new Insets(5, 5, 5, 10));
         hBox.getChildren().add(imageView);
         hBox.setAlignment(Pos.CENTER_RIGHT);
 
         vBox.getChildren().add(hBox);
 
         try {
-            outputStream.writeUTF("img&"+this.name+"&"+absolutePath);
+            outputStream.writeUTF("img&" + this.name + "&" + absolutePath);
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -527,7 +487,7 @@ public class ChatFormController {
         String[] words = nv.split(" ");
         for (String word : words) {
             Optional<Emoji> optionalEmoji = EmojiData.emojiFromShortName(word);
-            if (optionalEmoji.isPresent()){
+            if (optionalEmoji.isPresent()) {
                 unicodeText.append(optionalEmoji.get().character());
             }
         }
@@ -536,23 +496,19 @@ public class ChatFormController {
 
     @FXML
     void btnPeopleOnAction(ActionEvent event) {
-        if (!peoplePane.isVisible()){
+        if (!peoplePane.isVisible()) {
             peoplePane.setVisible(true);
         }
 
     }
 
 
-
     @FXML
     void btnChatOnAction(ActionEvent event) {
-        if (peoplePane.isVisible()){
+        if (peoplePane.isVisible()) {
             peoplePane.setVisible(false);
         }
     }
-
-
-
 
 
 }
