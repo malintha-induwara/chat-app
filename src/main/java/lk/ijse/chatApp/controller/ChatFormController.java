@@ -143,16 +143,18 @@ public class ChatFormController {
                 // Set the spacing between the children of the HBox
                 hbox.setSpacing(10);
 
-                // Create an ImageView for the user's image
-                ImageView imageView = new ImageView(userImage);
-                imageView.setFitHeight(50);
-                imageView.setFitWidth(50);
+
+                Circle circle = new Circle(25);// 25 is the radius of the circle
+
+                circle.setStroke(Color.BLACK); // Set the color of the border
+                circle.setStrokeWidth(2);
+                circle.setFill(new ImagePattern(userImage));
 
                 // Create a Label for the user's name
                 Label label = new Label(userName);
 
                 // Add the ImageView and Label to the HBox
-                hbox.getChildren().addAll(imageView, label);
+                hbox.getChildren().addAll(circle, label);
 
                 // Add the HBox to the VBox
                 peopleVbox.getChildren().add(hbox);
