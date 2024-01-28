@@ -37,7 +37,7 @@
          </graphic>
       </MFXButton>
       <Line endX="173.0" layoutX="103.0" layoutY="189.0" startX="-102.0" stroke="#a8a5a5" />
-      <MFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="1.0" layoutY="190.0" prefHeight="42.0" prefWidth="276.0" styleClass="mfx-button-menu" text="Chat">
+      <MFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="1.0" layoutY="190.0" onAction="#btnChatOnAction" prefHeight="42.0" prefWidth="276.0" styleClass="mfx-button-menu" text="Chat">
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -52,7 +52,7 @@
             <Insets left="40.0" />
          </padding>
       </MFXButton>
-      <MFXButton alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutY="232.0" onAction="#btnPeopleOnAction" prefHeight="42.0" prefWidth="276.0" styleClass="mfx-button-menu" text="People">
+      <MFXButton alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutY="232.0" onAction="#btnPeopleOnAction" prefHeight="42.0" prefWidth="276.0" styleClass="mfx-button-menu" text="Members">
          <font>
             <Font size="20.0" />
          </font>
@@ -137,16 +137,24 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <AnchorPane fx:id="peoplePane" layoutX="275.0" prefHeight="652.0" prefWidth="477.0" styleClass="pane" stylesheets="@../assets/css/Style.css">
+      <AnchorPane fx:id="peoplePane" layoutX="275.0" prefHeight="652.0" prefWidth="477.0" stylesheets="@../assets/css/Style.css" visible="false">
          <children>
-            <Pane prefHeight="60.0" prefWidth="477.0" styleClass="pane">
+            <Pane prefHeight="59.0" prefWidth="477.0" styleClass="pane">
                <children>
-                  <VBox fx:id="peopleVbox" layoutY="68.0" prefHeight="580.0" prefWidth="477.0" />
-                  <Text layoutX="201.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contacts">
+                  <Text layoutX="149.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Members in the Chat">
                      <font>
                         <Font name="Lexend Bold" size="17.0" />
                      </font>
                   </Text>
+                  <Line endX="2.5" endY="60.5" layoutX="-1.0" startX="2.5" startY="-0.5" stroke="#a8a5a5" />
+                  <Line endX="468.0" endY="46.0" layoutX="10.0" layoutY="10.0" startX="-8.0" startY="46.0" stroke="#a8a5a5" />
+               </children>
+            </Pane>
+            <Pane layoutY="56.0" prefHeight="596.0" prefWidth="477.0" styleClass="pane" stylesheets="@../assets/css/Style.css">
+               <children>
+                  <VBox fx:id="peopleVbox" layoutY="12.0" prefHeight="572.0" prefWidth="474.0" />
+                  <Line endX="35.0" endY="642.25" layoutX="-34.0" layoutY="-48.0" startX="36.0" startY="48.0" stroke="#a8a5a5" />
+                  <Line endX="501.0" endY="627.75" layoutX="-24.0" layoutY="-33.0" startX="25.5" startY="627.75" stroke="#a8a5a5" />
                </children>
             </Pane>
          </children>

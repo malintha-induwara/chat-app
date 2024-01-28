@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -39,6 +40,7 @@ import lk.ijse.chatApp.util.UserCountUtil;
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ChatFormController {
@@ -62,6 +64,10 @@ public class ChatFormController {
 
     @FXML
     private Text txtName;
+
+
+    @FXML
+    private VBox peopleVbox;
 
 
     @FXML
@@ -92,12 +98,19 @@ public class ChatFormController {
         setChatNameAndProfilePic();
         setEmojis();
         setUserCount();
+        updateContacts();
+
+
+
 
         //This line is to auto scroll down when new Message is received
         vBox.heightProperty().addListener((observableValue, oldValue, newValue) -> scrollPane.setVvalue((Double) newValue));
 
         //Set Listener to Observable Map to update the userount
-        UserCountUtil.users.addListener((MapChangeListener<String, Image>) change -> setUserCount());
+        UserCountUtil.users.addListener((MapChangeListener<String, Image>) change -> {
+            setUserCount();
+            updateContacts();
+        });
 
 
         //idk wtf is this but apparently its a another lambda expression
@@ -108,6 +121,43 @@ public class ChatFormController {
 
         Thread thread = new Thread(runnable);
         thread.start();
+    }
+
+    private void updateContacts() {
+
+        Platform.runLater(() -> {
+            peopleVbox.getChildren().clear();
+            peopleVbox.setSpacing(10);
+
+            // Iterate over the users map
+            for (Map.Entry<String, Image> entry : UserCountUtil.users.entrySet()) {
+                String userName = entry.getKey();
+                Image userImage = entry.getValue();
+
+                // Create a new HBox
+                HBox hbox = new HBox();
+
+                // Set the alignment of the HBox to center
+                hbox.setAlignment(Pos.CENTER);
+
+                // Set the spacing between the children of the HBox
+                hbox.setSpacing(10); // adjust the value as needed
+
+                // Create an ImageView for the user's image
+                ImageView imageView = new ImageView(userImage);
+                imageView.setFitHeight(50); // adjust the size as needed
+                imageView.setFitWidth(50); // adjust the size as needed
+
+                // Create a Label for the user's name
+                Label label = new Label(userName);
+
+                // Add the ImageView and Label to the HBox
+                hbox.getChildren().addAll(imageView, label);
+
+                // Add the HBox to the VBox
+                peopleVbox.getChildren().add(hbox);
+            }
+        });
     }
 
     private void setEmojis() {
@@ -484,7 +534,21 @@ public class ChatFormController {
     @FXML
     void btnPeopleOnAction(ActionEvent event) {
 
+        if (!peoplePane.isVisible()){
+            peoplePane.setVisible(true);
+        }
+
     }
+
+
+
+    @FXML
+    void btnChatOnAction(ActionEvent event) {
+        if (peoplePane.isVisible()){
+            peoplePane.setVisible(false);
+        }
+    }
+
 
 
 
