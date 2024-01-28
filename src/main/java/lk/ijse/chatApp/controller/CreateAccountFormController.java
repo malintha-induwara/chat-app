@@ -183,14 +183,22 @@ public class CreateAccountFormController {
             File file = new File(uri);
             String sourceLocation = file.getAbsolutePath();
 
-            //Copy File to resources user folder
+            // Get the user's home directory in a platform-independent way
+            String userHomeDir = System.getProperty("user.home");
+            Path directoryPath = Paths.get(userHomeDir, "Desktop", "users");
 
-            if (!(sourceLocation.equals("/home/syrex/Desktop/chat-app/src/main/resources/assets/images/users/user.png"))) {
+            // Create the directory if it does not exist
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectories(directoryPath);
+            }
+
+            // Copy File to the users folder on the desktop
+            if (!(sourceLocation.equals("assets/images/users/user.png"))) {
                 Path sourcePath = file.toPath();
-                Path destinationPath = Paths.get("/home/syrex/Desktop/chat-app/src/main/resources/assets/images/users/" + file.getName());
+                Path destinationPath = Paths.get(directoryPath.toString(), file.getName());
                 Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
 
-                return "assets/images/users/"+file.getName();
+                return "file:" + destinationPath;
             }
 
             return "assets/images/users/user.png";

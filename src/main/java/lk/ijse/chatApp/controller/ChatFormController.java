@@ -106,7 +106,7 @@ public class ChatFormController {
         //This line is to auto scroll down when new Message is received
         vBox.heightProperty().addListener((observableValue, oldValue, newValue) -> scrollPane.setVvalue((Double) newValue));
 
-        //Set Listener to Observable Map to update the userount
+        //Set Listener to Observable Map to update the usercount
         UserCountUtil.users.addListener((MapChangeListener<String, Image>) change -> {
             setUserCount();
             updateContacts();
@@ -141,12 +141,12 @@ public class ChatFormController {
                 hbox.setAlignment(Pos.CENTER);
 
                 // Set the spacing between the children of the HBox
-                hbox.setSpacing(10); // adjust the value as needed
+                hbox.setSpacing(10);
 
                 // Create an ImageView for the user's image
                 ImageView imageView = new ImageView(userImage);
-                imageView.setFitHeight(50); // adjust the size as needed
-                imageView.setFitWidth(50); // adjust the size as needed
+                imageView.setFitHeight(50);
+                imageView.setFitWidth(50);
 
                 // Create a Label for the user's name
                 Label label = new Label(userName);
@@ -353,6 +353,7 @@ public class ChatFormController {
         try {
             String massage = txtMassage.getText();
 
+
             outputStream.writeUTF("msg&"+this.name+"&"+massage);
             outputStream.flush();
 
@@ -533,7 +534,6 @@ public class ChatFormController {
 
     @FXML
     void btnPeopleOnAction(ActionEvent event) {
-
         if (!peoplePane.isVisible()){
             peoplePane.setVisible(true);
         }
