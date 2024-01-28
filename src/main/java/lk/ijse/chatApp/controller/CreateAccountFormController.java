@@ -31,25 +31,17 @@ import java.util.regex.Pattern;
 
 public class CreateAccountFormController {
 
+    UserModel userModel = new UserModel();
     @FXML
     private Circle circleImg;
-
     @FXML
     private AnchorPane createAccountPane;
-
-
     @FXML
     private MFXTextField txtUserName;
-
-
     @FXML
     private MFXPasswordField txtPassword;
-
     @FXML
     private MFXPasswordField txtPasswordReEnter;
-
-
-    UserModel userModel = new UserModel();
 
     public void initialize() {
         loadDefaultImage();
@@ -61,7 +53,6 @@ public class CreateAccountFormController {
         Image image = new Image("assets/images/users/user.png");
         circleImg.setFill(new ImagePattern(image));
     }
-
 
 
     private void closeWindow() {
@@ -89,7 +80,7 @@ public class CreateAccountFormController {
         }
 
         //CheckPassword are Match
-        if (!(txtPassword.getText().equals(txtPasswordReEnter.getText()))){
+        if (!(txtPassword.getText().equals(txtPasswordReEnter.getText()))) {
             txtPassword.requestFocus();
             txtPasswordReEnter.requestFocus();
 
@@ -97,7 +88,6 @@ public class CreateAccountFormController {
             txtPasswordReEnter.getStyleClass().add("mfx-text-field-error");
             return false;
         }
-
 
 
         txtUserName.getStyleClass().removeAll("mfx-text-field-error");
@@ -152,17 +142,17 @@ public class CreateAccountFormController {
             String url = imageSave();
 
             //Save User
-            boolean isSaved = userModel.saveUser(txtUserName.getText(),txtPassword.getText(),url);
+            boolean isSaved = userModel.saveUser(txtUserName.getText(), txtPassword.getText(), url);
 
-           if (!isSaved){
-               new Alert(Alert.AlertType.ERROR,"Something went wrong user didnt saved").show();
-               return;
-           }
+            if (!isSaved) {
+                new Alert(Alert.AlertType.ERROR, "Something went wrong user didnt saved").show();
+                return;
+            }
 
-           loadLoginForm();
+            loadLoginForm();
 
-        }catch (SQLException e){
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
     }
@@ -187,12 +177,10 @@ public class CreateAccountFormController {
             String userHomeDir = System.getProperty("user.home");
             Path directoryPath = Paths.get(userHomeDir, "Desktop", "users");
 
-            // Create the directory if it does not exist
             if (!Files.exists(directoryPath)) {
                 Files.createDirectories(directoryPath);
             }
 
-            // Copy File to the users folder on the desktop
             if (!(sourceLocation.equals("assets/images/users/user.png"))) {
                 Path sourcePath = file.toPath();
                 Path destinationPath = Paths.get(directoryPath.toString(), file.getName());
@@ -204,7 +192,7 @@ public class CreateAccountFormController {
             return "assets/images/users/user.png";
 
         } catch (URISyntaxException | IOException e) {
-            new Alert(Alert.AlertType.ERROR,"Check The File Path").show();
+            new Alert(Alert.AlertType.ERROR, "Check The File Path").show();
             throw new RuntimeException(e);
         }
     }
