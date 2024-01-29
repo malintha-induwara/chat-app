@@ -103,7 +103,6 @@ public class ChatFormController {
     }
 
     private void updateContacts() {
-
         Platform.runLater(() -> {
             peopleVbox.getChildren().clear();
             peopleVbox.setSpacing(10);
@@ -111,20 +110,19 @@ public class ChatFormController {
             for (Map.Entry<String, Image> entry : UserCountUtil.users.entrySet()) {
                 String userName = entry.getKey();
                 Image userImage = entry.getValue();
-                HBox hbox = new HBox();
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setSpacing(10);
+                VBox vbox = new VBox();
+                vbox.setAlignment(Pos.CENTER);
+                vbox.setSpacing(10);
                 Circle circle = new Circle(25);
                 circle.setStroke(Color.BLACK);
                 circle.setStrokeWidth(2);
                 circle.setFill(new ImagePattern(userImage));
                 Label label = new Label(userName);
-                hbox.getChildren().addAll(circle, label);
-                peopleVbox.getChildren().add(hbox);
+                vbox.getChildren().addAll(circle, label);
+                peopleVbox.getChildren().add(vbox);
             }
         });
     }
-
     private void setEmojis() {
         //Clear the grid
         emojiPickerGrid.getChildren().clear();
