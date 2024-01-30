@@ -4,6 +4,7 @@ import com.gluonhq.emoji.Emoji;
 import com.gluonhq.emoji.EmojiData;
 import com.gluonhq.emoji.util.TextUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.mfxcore.utils.fx.SwingFXUtils;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
@@ -37,11 +38,12 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.chatApp.util.UserCountUtil;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.Socket;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -227,18 +229,23 @@ public class ChatFormController {
     }
 
     private void receiveImage(String path) {
-        Image image = new Image(path);
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(200);
-        imageView.setFitWidth(200);
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.BASELINE_LEFT);
-        hBox.setPadding(new Insets(5, 5, 5, 10));
-        hBox.getChildren().add(imageView);
+        try {
+            Image image = convertStringToImage(path);
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(200);
+            imageView.setFitWidth(200);
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.BASELINE_LEFT);
+            hBox.setPadding(new Insets(5, 5, 5, 10));
+            hBox.getChildren().add(imageView);
 
-        Platform.runLater(() -> {
-            vBox.getChildren().add(hBox);
-        });
+            Platform.runLater(() -> {
+                vBox.getChildren().add(hBox);
+            });
+        }
+        catch (IOException e){
+
+        }
     }
 
     private void receivedName(String sender) {
@@ -429,7 +436,7 @@ public class ChatFormController {
 
 
     @FXML
-    void imageOnAction(MouseEvent event) {
+    void imageOnAction(MouseEvent event) throws IOException {
 
         FileChooser fileChooser = new FileChooser();
         configureFileChooser(fileChooser);
@@ -439,13 +446,18 @@ public class ChatFormController {
 
 
         if (file != null) {
-            sendImage(file.toURI().toString());
+            ImageView imageView = new ImageView(file.toURI().toString());
+            String imgText = convertImageToString(imageView.getImage());
+            sendImage(imgText);
         }
 
     }
 
+
     private void sendImage(String absolutePath) {
-        Image image = new Image(absolutePath);
+
+        try {
+        Image image = convertStringToImage(absolutePath);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
@@ -456,10 +468,9 @@ public class ChatFormController {
         hBox.setAlignment(Pos.CENTER_RIGHT);
 
         vBox.getChildren().add(hBox);
+        outputStream.writeUTF("img&" + this.name + "&" + absolutePath);
+        outputStream.flush();
 
-        try {
-            outputStream.writeUTF("img&" + this.name + "&" + absolutePath);
-            outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
