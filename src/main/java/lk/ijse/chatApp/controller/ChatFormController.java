@@ -453,6 +453,12 @@ public class ChatFormController {
 
     }
 
+    private Image convertStringToImage(String imageAsString) throws IOException {
+        byte[] imageBytes = Base64.getDecoder().decode(imageAsString);
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
+        return new Image(inputStream);
+    }
+
 
     private void sendImage(String absolutePath) {
 
