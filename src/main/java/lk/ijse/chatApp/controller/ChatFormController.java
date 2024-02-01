@@ -459,6 +459,29 @@ public class ChatFormController {
         return new Image(inputStream);
     }
 
+    private String convertImageToString(Image image) throws IOException {
+        double maxWidth = 600;
+        double maxHeight = 400;
+        double width = image.getWidth();
+        double height = image.getHeight();
+
+        if (width > maxWidth || height > maxHeight) {
+            double scaleFactor = Math.min(maxWidth / width, maxHeight / height);
+            width *= scaleFactor;
+            height *= scaleFactor;
+        }
+
+        BufferedImage resizedImage = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(SwingFXUtils.fromFXImage(image, null), 0, 0, (int) width, (int) height, null);
+        g.dispose();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ImageIO.write(resizedImage, "jpg", outputStream);
+
+        byte[] imageBytes = outputStream.toByteArray();
+        return Base64.getEncoder().encodeToString(imageBytes);
+    }
 
     private void sendImage(String absolutePath) {
 
