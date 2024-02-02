@@ -7,14 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
-    private ServerSocket server;
-    public static final int PORT = 3030;
-    private static int index = 0;
-    private static List<ClientHandler> clients = new ArrayList<>();
+
+    private static Server server;
+    private ServerSocket serverSocket;
+    public  final int PORT = 3030;
+    private int index = 0;
+    private final List<ClientHandler> clients = new ArrayList<>();
+
+
+    private Server(){
+    }
+
+    public static Server getInstance(){
+        return (server==null)?server=new Server():server;
+    }
+
 
     public void startServer(){
         try{
-            server = new ServerSocket(PORT);
+            serverSocket = new ServerSocket(PORT);
             do { iniConnections();
             }while (true);
         } catch (IOException e) {
@@ -23,7 +34,7 @@ public class Server {
     }
 
     private void iniConnections() throws IOException {
-        Socket clientSocket = server.accept();
+        Socket clientSocket = serverSocket.accept();
 
         if(clientSocket.isConnected()){
             new Thread(()->{
@@ -36,7 +47,7 @@ public class Server {
         }
     }
 
-    public static void broadcastMessage(String message, int senderId) {
+    public  void broadcastMessage(String message, int senderId) {
         for (ClientHandler client : clients) {
             if (client.getId() != senderId) {
                 client.sendMessage(message);

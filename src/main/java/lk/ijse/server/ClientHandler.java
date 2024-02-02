@@ -27,7 +27,7 @@ public class ClientHandler {
         while(!line.equals("end")){
             try {
                 line = inputStream.readUTF();
-                Server.broadcastMessage(line, id);
+                Server.getInstance().broadcastMessage(line, id);
             } catch (IOException e) {
                 e.printStackTrace();
             }
