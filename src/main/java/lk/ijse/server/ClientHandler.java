@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class ClientHandler {
-    private Socket clientSocket;
+    private final Socket clientSocket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
-    private int id;
+    private final int id;
 
     public ClientHandler(Socket clientSocket, int id) {
         this.clientSocket = clientSocket;
@@ -23,11 +23,11 @@ public class ClientHandler {
     }
 
     public void readMessages(){
-        String line = "";
-        while(!line.equals("end")){
+        String message = "";
+        while(!message.equals("end")){
             try {
-                line = inputStream.readUTF();
-                Server.getInstance().broadcastMessage(line, id);
+                message = inputStream.readUTF();
+                Server.getInstance().broadcastMessage(message, id);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -46,6 +46,7 @@ public class ClientHandler {
     public void sendMessage(String message) {
         try {
             outputStream.writeUTF(message);
+            outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

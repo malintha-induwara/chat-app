@@ -96,12 +96,33 @@ public class ChatFormController {
 
         //idk wtf is this but apparently its a another lambda expression
         //Original code was
-        //Runnable runnable = ()->{ socketInitialize())};
-
-        Runnable runnable = this::socketInitialize;
-
+        Runnable runnable = ()->{socketInitialize();};
         Thread thread = new Thread(runnable);
         thread.start();
+    }
+
+    private void socketInitialize() {
+
+        try {
+            socket = new Socket("localhost", 3030);
+            inputStream = new DataInputStream(socket.getInputStream());
+            outputStream = new DataOutputStream(socket.getOutputStream());
+
+            //Client Connected msg
+            outputStream.writeUTF("noti&" + this.name + "& Connected");
+            outputStream.flush();
+
+            do {
+                message = inputStream.readUTF();
+                Platform.runLater(() -> {
+                    messageSelector(message);
+                });
+
+            } while (!message.equals("end"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void updateContacts() {
@@ -129,7 +150,7 @@ public class ChatFormController {
         //Clear the grid
         emojiPickerGrid.getChildren().clear();
 
-        String text = "grinning grin joy smile smiling_face_with_tear sunglasses middle_finger pinched_fingers wave";
+        String text = "grinning grin joy smile smiling_face_with_tear sunglasses heart pinched_fingers wave";
         String[] words = text.split(" ");
 
 
@@ -168,29 +189,7 @@ public class ChatFormController {
         }
     }
 
-    private void socketInitialize() {
 
-        try {
-            socket = new Socket("localhost", 3030);
-            inputStream = new DataInputStream(socket.getInputStream());
-            outputStream = new DataOutputStream(socket.getOutputStream());
-
-            //Client Connected msg
-            outputStream.writeUTF("noti&" + this.name + "& Connected");
-            outputStream.flush();
-
-            do {
-                message = inputStream.readUTF();
-                Platform.runLater(() -> {
-                    messageSelector(message);
-                });
-
-            } while (!message.equals("end"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void messageSelector(String message) {
 
@@ -228,9 +227,9 @@ public class ChatFormController {
         vBox.getChildren().add(hBox);
     }
 
-    private void receiveImage(String path) {
+    private void receiveImage(String imageString) {
         try {
-            Image image = convertStringToImage(path);
+            Image image = convertStringToImage(imageString);
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(200);
             imageView.setFitWidth(200);
@@ -483,10 +482,10 @@ public class ChatFormController {
         return Base64.getEncoder().encodeToString(imageBytes);
     }
 
-    private void sendImage(String absolutePath) {
+    private void sendImage(String imageString) {
 
         try {
-        Image image = convertStringToImage(absolutePath);
+        Image image = convertStringToImage(imageString);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
@@ -497,7 +496,7 @@ public class ChatFormController {
         hBox.setAlignment(Pos.CENTER_RIGHT);
 
         vBox.getChildren().add(hBox);
-        outputStream.writeUTF("img&" + this.name + "&" + absolutePath);
+        outputStream.writeUTF("img&" + this.name + "&" + imageString);
         outputStream.flush();
 
         } catch (IOException e) {
@@ -537,7 +536,6 @@ public class ChatFormController {
         if (!peoplePane.isVisible()) {
             peoplePane.setVisible(true);
         }
-
     }
 
 
