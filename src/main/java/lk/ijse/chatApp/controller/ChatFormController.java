@@ -96,7 +96,8 @@ public class ChatFormController {
 
         //idk wtf is this but apparently its a another lambda expression
         //Original code was
-        Runnable runnable = ()->{socketInitialize();};
+        //  Runnable runnable = ()->{socketInitialize();};
+        Runnable runnable = this::socketInitialize;
         Thread thread = new Thread(runnable);
         thread.start();
     }
