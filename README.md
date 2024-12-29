@@ -1,6 +1,6 @@
-# GDSE- Introduction to Network Programming (INP) Module Final CourseWork.
+# Chat Applicaiton.
 
-*Chat Applicaiton made using JAVA FX and Socket Programming.
+* Chat Applicaiton made using JAVA FX and Socket Programming.
 
 ### Login
 
